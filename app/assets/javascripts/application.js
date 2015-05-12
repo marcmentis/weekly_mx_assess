@@ -20,6 +20,8 @@
 //= require jquery.jqGrid.min.js
 //= require hoverintent.js
 //= require superfish.js
+//= require jquery.validate.min.js
+//= require mjm.js
 //= require_tree .
 //= require turbolinks
 

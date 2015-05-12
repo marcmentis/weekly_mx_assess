@@ -31,7 +31,7 @@ class PatientsController < ApplicationController
     conditions = conditions.where("firstname = :firstname", {firstname: params[:firstname]}) if params[:firstname]!= ''
     conditions = conditions.where("lastname = :lastname", {lastname: params[:lastname]}) if params[:lastname]!= ''
     conditions = conditions.where("number = :number", {number: params[:number]}) if params[:number]!= ''
-    conditions = conditions.where("ward = :ward", {ward: params[:ward]}) if params[:ward]!= ''
+    conditions = conditions.where("ward = :ward", {ward: params[:ward]}) if params[:ward]!= '-1'
 
 
     # total_query = Patient.where("facility = :facility", {facility: params[:diagnosis]}

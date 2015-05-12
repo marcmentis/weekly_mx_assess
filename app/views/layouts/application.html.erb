@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Rollify</title>
+  <title>Wrapper1</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -11,16 +12,20 @@
 <%= render 'layouts/header.html.erb' %>
 <%= yield %>
 
+<%= render 'layouts/footer.html.erb' %>
 <script>
 	 $(function(){
 		// Load the superfish horizontal navigation menu
 		jQuery('ul.sf-menu').superfish();
 
-		// STYLE 
-		$('#divTotalWrapper').addClass('pad_3_sides')
-		$('#header').addClass('header')
-		$('#fig').addClass('float_left pad_3_sides')
-		$('#clear_break').addClass('clear_both');
+		// // STYLE 		
+		$('#divHeaderPageWrapper').addClass('header_page_wrapper')
+		$('#layoutHeader').addClass('header')
+		$('#layoutFig').addClass('float_left pad_3_sides')
+		$('#layoutClear_break').addClass('clear_both');
+
+		$('#divFooterPageWrapper').addClass('pad_3_sides')
+		$('#layoutFooter').addClass('highest_level_blue_background')
 		
 	});
 </script>

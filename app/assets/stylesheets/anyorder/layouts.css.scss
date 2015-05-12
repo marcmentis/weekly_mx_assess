@@ -1,9 +1,61 @@
-/* GENERIC */
+/* CONSTANTS */
 
-$header-blue: #78BCE8;
-$background_gray: #D0D0D0;
-$background_light_gray: #E0E0E0;
+/* jQuery Validate */
+.error {
+	color: red;
+}
 
+/* FONT FAMILIES*/
+//From Rails scaffold
+$s_font_family: verdana, arial, helvetica, sans-serif;
+//From jQuery Redmond theme
+$r_font_family: 'Lucida Grande', 'Lucida Sans', Arial,sans-serif;
+// $r_font_family: verdana, arial, helvetica, sans-serif;
+
+/* COLORS */
+//jQuery Redmond theme colors
+$r_header_background: #5c9ccc;
+$r_header_border: #4297d7;
+$r_header_text: #ffffff; 
+
+$r_content_background: #fcfdfd;
+$r_content_border: #a6c9e2;
+$r_content_text: #222222;
+
+$r_click_default_background: #dfeffc;
+$r_click_default_border: #c5dbec;
+$r_click_default_text: #2e6e9e;
+
+$r_click_hover_background: #d0e5f5;
+$r_click_hover_border: #79b7e7;
+$r_click_hover_text: #1d5987;
+
+$r_click_active_background: #f5f8f9;
+$r_click_active_border: #79b7e7;
+$r_click_active_text: #e17009;
+
+$r_highlight_background: #fbec88;
+$r_highlight_border: #fad42e;
+$r_highlight_text: #363636;
+
+$r_error_background: #fef1ec;
+$r_error_border: #cd0a0a;
+$r_error_text: #cd0a0a;
+
+$r_modal_overlay_background: #aaaaaa;
+$r_drop_shadow_background:  #aaaaaa;
+
+//other colors
+// $header-blue: #78BCE8;
+$header-blue: #5c9ccc;
+// $background_gray: #D0D0D0;
+$background_gray: #EBEBEB;
+// $background_light_gray: #EBEBEB;
+$background_light_gray: #F5F5F5;
+
+
+
+//HELPER CLASSES
 .float_left {
 	float: left;
 }
@@ -28,14 +80,159 @@ $background_light_gray: #E0E0E0;
 .pad_4_back_color {
 	padding: 0.25em; //top, rt, bottom, lt
 	background-color: $background_light_gray;
+	border-radius: 10px;
+}
+.highest_level_blue_background {
+	background-color: $header-blue;
+}
+.centered {
+	margin: 0.25em auto 0 auto
+}
+
+.spanWrapper_to_center {
+	position: relative;
+	float: left;
+	left: 50%;
+}
+.span_centered_in_wrapper {
+	position:relative;
+	float:left;
+	left: -50%;
+}
+
+/* text */
+.moderate_increase {
+	font-size: 120%;
+}
+.bold {
+	font-style: bold;
+}
+
+//GENERIC BASIC WIDGET SETUP - some Redmont theming
+
+//forms  (livetools.uiparade.com form-builder)
+.form_container {
+	border: 1px solid $background_gray;
+	background: $background_light_gray;
+	background: -webkit-gradient(linear, left top, left bottom, from($background_gray), to($background_light_gray));
+	background: -webkit-linear-gradient(top, $background_gray, $background_light_gray);
+	background: -moz-linear-gradient(top, $background_gray, $background_light_gray);
+	background: -ms-linear-gradient(top, $background_gray, $background_light_gray);
+	background: -o-linear-gradient(top, $background_gray, $background_light_gray);
+	background-image: -ms-linear-gradient(top, $background_gray 0%, $background_light_gray 100%);
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
+	-moz-box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
+	box-shadow: rgba(000,000,000,0.9) 0 0px 0px, inset rgba(255,255,255,0.4) 0 0px 0;
+	font-family: $r_font_family;
+	text-decoration: none;
+	vertical-align: middle;
+	// min-width:300px;
+	padding:4px;
+	width:600px;
+	.label {
+		color: $r_click_default_text;
+	}
+	h2 {
+	   text-shadow: #fdf2e4 0 1px 0;
+	   font-size:18px;
+	   color: $r_click_default_text;
+	   margin: 0 0 10px 0;
+	   font-weight:bold;
+	   text-align:center;		
+	}
+	input[type='text'] {
+		font-family: $s_font_family;
+		text-align: center;
+		border: 1px solid $r_content_border;
+		background: $r_content_background;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		// color: $r_content_text;
+		-webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+		-moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+		box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+		padding:3px;
+		// margin-bottom:10px;
+		width:100px;
+	}
+	select {
+		font-family: $r_font_family;
+		background-color: $r_click_default_background;
+		border-radius: 5px;
+		color: $r_click_default_text;
+		border-color: $r_click_default_border;
+		width: 108px;
+		font-size: 12px;
+	}
+   }
+
+.texts {
+	font-family: $s_font_family;
+	text-align: center;
+	border: 1px solid $r_content_border;
+	background: $r_content_background;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	// color: $r_content_text;
+	-webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+	-moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+	box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+	padding:3px;
+	// margin-bottom:10px;
+	width:100px;
+   }
+.field {
+	display: inline-block;
+	width: 210px;
+	text-align: right;
+	}
+
+//selects
+.selects {
+	font-family: $r_font_family;
+	background-color: $r_click_default_background;
+	border-radius: 5px;
+	color: $r_click_default_text;
+	border-color: $r_click_default_border;
+	width: 110px;
+	font-size: 12px;
+
+	// -webkit-appearance: none;  //I think webkit prevents
+		//padding
+}
+
+//buttons
+.reduce_button {
+	font-size: 11px;
+}
+
+//datepickers
+div.ui-datepicker, .ui-datepicker td{
+	font-size: 12px;
 }
 
 
 
+/* ****  SPECIFIC PAGES - move out later  ***** */
 /* _HEADER PARTIAL  */
 .header {
-	background-color: $header-blue;
-	// padding: 0.25em 0.25em 0 0.25em
-	// padding-top: 0.25em;
-	// background-color: #202020
+	position: fixed;
+	top: 0;
+	left: 0.25em;
+	right: 0.25em;
+	z-index: 100;
+	// background-color: $header-blue;
+	background-color: #5c9ccc;
 }
+.header_page_wrapper {
+	margin-bottom: 2.8em;
+}
+
+
+
+

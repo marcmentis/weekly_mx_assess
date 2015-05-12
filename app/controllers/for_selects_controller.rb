@@ -19,8 +19,21 @@ class ForSelectsController < ApplicationController
     #   flash[:notice] = 'no current user not known'
     # end
 
-    authorize ForSelect
+    # authorize ForSelect
     @for_selects = ForSelect.all
+  end
+
+  def options_search
+    options = ForSelect.all
+    options = options.where("code = :code", {code: params[:code]}) if params[:code]!=''
+    # options = options.where("grouper = :grouper",{grouper: params[:grouper]}) if params[:grouper]!=''
+    options = options.order("option_order")
+
+    @options = options
+    respond_to do |format|
+      format.html
+      format.json {render json: @options }
+    end
   end
 
   # GET /for_selects/1

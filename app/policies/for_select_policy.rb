@@ -8,7 +8,7 @@ class ForSelectPolicy
 
 	def index?
 		# @current_user.role == 'admin2'
-		@current_user.has_role? :super_admin
+		# @current_user.has_role? :super_admin
 
 	end
 end

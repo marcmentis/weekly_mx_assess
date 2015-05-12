@@ -1,16 +1,16 @@
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
-
-  # adapter: mysql2
-  # database: devdeploysuite
-  # username: root
-  # password:
-  # encoding: utf8
+  # adapter: sqlite3
+  # database: db/development.sqlite3
   # pool: 5
-  # socket: /tmp/mysql.sock
+  # timeout: 5000
+
+  adapter: mysql2
+  database: devdeploysuite
+  username: root
+  password:
+  encoding: utf8
+  pool: 5
+  socket: /tmp/mysql.sock
 
   # adapter: <%= CONFIG[:adapter1_mysql] %>
   # database: <%= CONFIG[:databaseB] %>
@@ -43,10 +43,10 @@ production:
   # password: "gan1dolf2"
   # socket_mysql: "/var/run/mysqld/mysqld.sock"
 
-  # adapter: <%= CONFIG[:adapter_db1] %>
-  # database: <%= CONFIG[:database_db1] %>
-  # username: <%= CONFIG[:username_db1] %>
-  # password: <%= CONFIG[:password_db1] %>
+  # adapter: <%= CONFIG[:adapter1_oracle] %>
+  # database: <%= CONFIG[:database1] %>
+  # username: <%= CONFIG[:username1] %>
+  # password: <%= CONFIG[:password1] %>
 
 
   adapter: <%= CONFIG[:adapter1_mysql] %>
