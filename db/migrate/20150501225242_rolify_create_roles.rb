@@ -13,7 +13,7 @@ class RolifyCreateRoles < ActiveRecord::Migration
     end
 
     add_index(:roles, :name)
-    add_index(:roles, [ :name, :resource_type, :resource_id ])
-    add_index(:users_roles, [ :user_id, :role_id ])
+    add_index(:roles, [ :name, :resource_type, :resource_id ], name: 'name_restype_res_id')
+    add_index(:users_roles, [ :user_id, :role_id ], name: 'roles_userid_roleid')
   end
 end

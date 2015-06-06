@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604153729) do
+ActiveRecord::Schema.define(version: 20150501225242) do
 
   create_table "for_selects", force: true do |t|
     t.string   "code"
@@ -74,6 +74,6 @@ ActiveRecord::Schema.define(version: 20150604153729) do
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "roles_user_id_role_id", using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "roles_userid_roleid", using: :btree
 
 end
