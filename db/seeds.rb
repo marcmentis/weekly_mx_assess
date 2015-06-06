@@ -64,6 +64,12 @@ ForSelect.create!(facility: '0013', code: 'ward', value: '25/5N', text: '25/5N',
 ForSelect.create!(facility: '0013', code: 'ward', value: '25/5S', text: '25/5S', option_order: 29, grouper: 'bld25')
 ForSelect.create!(facility: '0013', code: 'ward', value: 'd/c', text: 'd/c', option_order: 30, grouper: 'd/c')
 
+# Sagamore Ward Names
+ForSelect.create!(facility: '0025', code: 'ward', value: 'E-unit', text: 'E-unit', option_order: 1, grouper: 'scpc')
+ForSelect.create!(facility: '0025', code: 'ward', value: 'F-unit', text: 'F-unit', option_order: 2, grouper: 'scpc')
+ForSelect.create!(facility: '0025', code: 'ward', value: 'G-unit', text: 'G-unit', option_order: 3, grouper: 'scpc')
+
+
 # User make sure pgmdmjm in database
 User.create!(firstname: 'Marc', lastname: 'Mentis', authen: 'pgmdmjm', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
 User.create!(firstname: 'Marc', lastname: 'Mentis', authen: 'mmentis', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')

@@ -5,6 +5,7 @@
 // or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
 //
 //    require turbolinks
+//    require jquery-ui
 //
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // compiled file.
@@ -15,7 +16,8 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery-ui/datepicker
+//= require jquery-ui/button
 //= require grid.locale-en.js
 //= require jquery.jqGrid.min.js
 //= require hoverintent.js

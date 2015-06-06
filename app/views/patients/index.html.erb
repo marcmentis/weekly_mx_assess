@@ -3,7 +3,8 @@
 <div id="divPatientPageInnerWrapper">
 
   <div id="divPatientAsideRt">
-    <div id="PatientAsideRtTitle"><h2>Patient Data</h2></div>       
+    <div id="PatientAsideRtTitle"><h2>Patient Data</h2></div>
+    <div id="PatientAsideRtErrors"></div>       
     <form id="fPatientAsideRt">
       <fieldset>
         <input id="id" type="hidden" name="id" />
@@ -35,7 +36,7 @@
       </fieldset>         
     </form>
   </div>
-  <div>
+  <!-- <div> -->
     <form id="fPatientSearch">
       <div id="PatientSearchTitle"><h2>Search Criteria</h2></div>
       <div class="field">
@@ -46,31 +47,23 @@
         <label>last_name</label>
         <input id="ftx_S_lastname" type="text" />             
       </div>
-        <div class="field">
-          <label>number</label>
-          <input id="ftx_S_number" type="text" />          
-        </div>
-        <div class="field"> 
-          <label>facility</label>      
-          <input id="ftx_S_facility" type="text" />         
-        </div>
-        <div class="field"> 
-          <label>ward</label>
-          <select id="slt_s_ward" name="sltWard">
-            <option value="-1">Choose car</option>
-            <optgroup label="Bad">
-              <option value="81/101">Volvo</option>
-              <option value="saab">Saab</option>
-            <optgroup label="Good">
-              <option value="lexus">Lexus</option>
-              <option value="merc">Merc</option>
-          </select>       
-          <!-- <input id="ftx_S_ward" type="text" /> -->         
-        </div>
-        <input id="btnSubmit" type="submit" value="Search" />  
+      <div class="field">
+        <label>number</label>
+        <input id="ftx_S_number" type="text" />          
+      </div>
+      <div class="field"> 
+        <label>facility</label>      
+        <select id="slt_S_facility" name="slt_S_facility"></select>        
+      </div>
+      <div class="field"> 
+        <label>ward</label>
+        <select id="slt_S_ward" name="slt_S_ward"></select>       
+        <!-- <input id="ftx_S_ward" type="text" /> -->         
+      </div>
+      <input id="btnSubmit" type="submit" value="Search" />  
     </form>
     <div id="divGrid"></div>
-  </div>
+  <!-- </div> -->
 
 
 
@@ -82,8 +75,8 @@
     BELOW
   </section>
 
-</div>
-</div>
+</div>  <!-- id="divPatientPageInnerWrapper" -->
+</div>  <!-- id="divPatientPageWrapper" -->
 
 
 

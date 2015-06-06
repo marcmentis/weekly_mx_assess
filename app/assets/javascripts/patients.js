@@ -2,105 +2,115 @@ $(function(){
 // $(document).on("ready page:change", function(){ 
 if ($('body.patients').length) {
 
-	//WIP
-	$('#ftx_S_facility').click(function(){
-		$('#slt_s_ward').mjm_addOptions('ward',{firstLine: 'All Wards', group: true});
-	});
-
-	
-
 	//DECLARE VARIABLES
-	var ID = '';
-	  	function set_id(x){ID = x};
-	// alert('in inpatients.js');
-	refreshgrid('nil');
+		var ID = '';
+		  	function set_id(x){ID = x};
+		
 
 	// STYLING
-	$('#divPatientPageWrapper').addClass('pad_3_sides');
-	$('#divPatientPageInnerWrapper').addClass('centered')
-									.css({'width':'75em'});
-	$('#divPatientAsideRt').addClass('float_right form_container')
-							.css({'width':'250px'})
-							.hide();
+		$('#divPatientPageWrapper').addClass('pad_3_sides');
+		$('#divPatientPageInnerWrapper').addClass('centered')
+										.css({'width':'75em'});
+		$('#divPatientAsideRt').addClass('float_right form_container')
+								.css({'width':'250px'})
+								.hide();
+		$('#PatientAsideRtErrors').addClass('error_explanation')
+									.hide();
 
-	$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
-	$('#btnSubmit').addClass('submit-button').hide();
-
-
-	//button
-	$('[id^=b]').button().addClass('reduce_button')
-	$('#lastname').addClass('input_field')
-
-	//dates
-	$('[id^=dt]').datepicker().css({'width':'7em'});
+		$('#fPatientSearch').addClass('form_container').css({'width':'692px'});
+		// Can't use .hide() as wont work with IE 10
+		$('#btnSubmit').addClass('move_off_page')
 
 
-	//FORMS
-	//Validate and Submit fPatientAsideRt
-	$('#fPatientAsideRt').validate({
-		rules: {
-			firstname: {
-				required: true,
-				minlength: 2
+		//button
+		$('[id^=b]').button().addClass('reduce_button')
+		// $('#lastname').addClass('input_field')
+
+		//dates
+		$('[id^=dt]').datepicker().css({'width':'7em'});
+
+	// SELECTS
+		// TO DO Show only if Admin2
+		$('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
+		// Show appropriate wards in
+		$('#slt_S_facility').change(function(){
+			var chosen_facility = $('#slt_S_facility').val();
+			$('#slt_S_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: chosen_facility, group: true})
+		});
+
+		// Filter when Facility changed
+		$('#slt_S_facility').change(function(e){
+			complex_search1();
+		});
+
+		//Filter when ward changed
+		$('#slt_S_ward').change(function(e){
+			complex_search1();
+		});
+
+
+	//FORM VALIDATION, SUBMIT HANDLER
+		//Validate and Submit fPatientAsideRt
+		$('#fPatientAsideRt').validate({
+			rules: {
+				firstname: {
+					required: true,
+					minlength: 2
+				},
+				lastname: {
+					required: true,
+					minlength: 4
+				}
 			},
-			lastname: {
-				required: true,
-				minlength: 4
-			}
-		},
-		messages: {
-			firstname: {
-				required: "Firstname is required",
-				minlength: "At least two characters required"
+			messages: {
+				firstname: {
+					required: "Firstname is required",
+					minlength: "Two characters required"
+				},
+				lastname: {
+					required: "Lastname is required",
+					minlength: "Four chararcters required"
+				}
 			},
-			lastname: {
-				required: "Lastname is required",
-				minlength: "At least two chararcters required"
+			submitHandler: function(form){
+				//Get value of submit button to determine which AJAX call to make
+				submit_value = $(form).find('input[type=submit]').attr('value')
+				switch(submit_value){
+					case 'New':
+						patients_ajax1('/patients', 'POST');
+						break;
+					case 'Edit':
+						patients_ajax1('/patients/'+ID+'', 'PATCH');
+						break;
+					default:
+						alert('submit_id not found');
+						return false;
+				};
+				
 			}
-		},
-		submitHandler: function(form){
-			//Get value of submit button to determine which AJAX call to make
-			submit_value = $(form).find('input[type=submit]').attr('value')
-			switch(submit_value){
-				case 'New':
-					ajax_call('/patients', 'POST');
-					break;
-				case 'Edit':
-					ajax_call('/patients/'+ID+'', 'PATCH');
-					break;
-				default:
-					alert('submit_id not found');
-					return false;
-			};
-			
-		}
-	});
+		});
 
-	//Submit complex search on fPatientSearch using hidden submit button
-	$('#btnSubmit').click(function(e){
-		e.preventDefault();
-			var firstname = $('#ftx_S_Firstname').val();
-			var lastname = $('#ftx_S_lastname').val();
-			var number = $('#ftx_S_number').val();
-			var facility = $('#ftx_S_facility').val();
-			var ward = $('#slt_s_ward').val();
 
-			$("#gridGrid").remove();         
-			url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
-			refreshgrid(url);	
-	});
 
 
 
 
 	// BUTTONS
-	$('#bPatientBack').click(function(){
-		$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').hide();
-		clearFields();
-	});
+		//Submit complex search on fPatientSearch using hidden submit button
+		// $('#btnSubmit').click(function(e){
+		$('#fPatientSearch').submit(function(e){
+			e.preventDefault();
+			complex_search1();
+		});
+		$('#bPatientBack').click(function(){
+			$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').hide();
+			clearFields();
+		});
 
 	
-
+	// RUN ON OPENING
+	// refreshgrid('nil');
+	complex_search1();
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function refreshgrid(url){
@@ -223,7 +233,7 @@ if ($('body.patients').length) {
 			onClickButton: function(){	
 				if (ID.length > 0) {	
 					if(confirm("Are you sure you want to delete this patient")){
-						ajax_call('/patients/'+ID+'', 'DELETE');	
+						patients_ajax1('/patients/'+ID+'', 'DELETE');	
 					} else {
 						return true;
 					};
@@ -233,15 +243,12 @@ if ($('body.patients').length) {
 		});
 	};
 
-
 	function clearFields(){
 		$('#firstname, #lastname, #number, #facility, #ward').val('');
+		$('#PatientAsideRtErrors').html('').hide();
 	 };
 
-
-
-
-	function ajax_call (url, type) {
+	function patients_ajax1 (url, type) {
 		var firstname = $('#firstname').val();
 		var lastname = $('#lastname').val();
 		var number = $('#number').val();
@@ -258,15 +265,40 @@ if ($('body.patients').length) {
 			data: data_for_params,
 			dataType: 'json'
 		}).done(function(data){
-			refreshgrid('nil');
+			// refreshgrid('nil');
+			complex_search1();
 			clearFields();
 			// $('#divPatientAsideRt, #bEdit, #bNew, #bDelete, #bBack').hide();
 			$('#divPatientAsideRt, #bPatientSubmit, #bPatientBack').hide();
 
-		}).fail(function(){
-			alert('Error in invoicenew');
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			// alert('HTTP status code: ' + jqXHR.status + '\n' +
+	  //             'textStatus: ' + textStatus + '\n' +
+	  //             'errorThrown: ' + errorThrown);
+	  //       alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+	        var msg = JSON.parse(jqXHR.responseText)
+	        var newHTML;
+	        newHTML = '<h3>Validation Error</h3>';	
+	        newHTML += '<ul>';        
+	        $.each(msg, function(key, value){
+	        	newHTML += '<li>'+ value +'</li>';
+	        });
+	        newHTML += '</ul>';
+	        $('#PatientAsideRtErrors').show().html(newHTML)
 		});
 	};
 
+	function complex_search1 (){
+		var firstname = $('#ftx_S_Firstname').val();
+		var lastname = $('#ftx_S_lastname').val();
+		var number = $('#ftx_S_number').val();
+		var facility = $('#slt_S_facility').val();
+		var ward = $('#slt_S_ward').val();
+
+		// $("#gridGrid").remove();         
+		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
+		refreshgrid(url);	
+	};
+
 };   //if ($('body.patients').length) {
-});  //$(document).on("ready page:change", function(){ 
+});  // $(function(){

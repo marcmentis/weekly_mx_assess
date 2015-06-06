@@ -1,9 +1,5 @@
 /* CONSTANTS */
 
-/* jQuery Validate */
-.error {
-	color: red;
-}
 
 /* FONT FAMILIES*/
 //From Rails scaffold
@@ -53,6 +49,36 @@ $background_gray: #EBEBEB;
 // $background_light_gray: #EBEBEB;
 $background_light_gray: #F5F5F5;
 
+/* jQuery Validate */
+.error {
+	color: red;
+}
+
+/* Server Side Validation */
+.error_explanation {
+  // width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h3 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+  ul li {
+    font-size: 12px;
+    list-style: square;
+    color: $r_click_default_text;
+  }
+}
+
 
 
 //HELPER CLASSES
@@ -99,6 +125,9 @@ $background_light_gray: #F5F5F5;
 	float:left;
 	left: -50%;
 }
+.spacer_vertical_small{
+	margin-top: 0.25em;
+}
 
 /* text */
 .moderate_increase {
@@ -132,7 +161,7 @@ $background_light_gray: #F5F5F5;
 	// min-width:300px;
 	padding:4px;
 	width:600px;
-	.label {
+	label {
 		color: $r_click_default_text;
 	}
 	h2 {
@@ -231,6 +260,22 @@ div.ui-datepicker, .ui-datepicker td{
 }
 .header_page_wrapper {
 	margin-bottom: 2.8em;
+}
+
+.move_off_page {
+	position: absolute;
+	left: -9999px;
+}
+
+//From Users index.html.erb
+
+.field_roles {
+	display: inline-block;
+	// width: 210px;
+	text-align: center;
+	vertical-align: text-top;
+	padding: 0.5em;
+	margin-right: 2em;
 }
 
 

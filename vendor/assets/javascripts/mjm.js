@@ -39,11 +39,13 @@
 			};
 
 			data_for_params = {'code': code, 'facility': facility}
+			// data_for_params = {'code': code}
 			$.ajax({
-				url: '/for_selects_search',
+				url: '/for_selects_options_search',
 				type: 'GET',
 				data: data_for_params,
 				dataType: 'json',
+				contentType: 'application/json; charset=utf-8',
 				async: async
 			}).done(function(data){
 				//Clear Select of both 'options' and 'optgroup'
@@ -77,8 +79,12 @@
 					}
 				}
 				element.append(html);			
-			}).fail(function(request,status,errorThrown){
-				alert('Error in add_options');
+			}).fail(function(jqXHR,textStatus,errorThrown){
+				alert('Error in mjm 1 add_options');
+				alert('HTTP status code: ' + jqXHR.status + '\n' +
+			              'textStatus: ' + textStatus + '\n' +
+			              'errorThrown: ' + errorThrown);
+			        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
 			}); //End of ajax/done/fail
 
 			}); //return this.each(function(){

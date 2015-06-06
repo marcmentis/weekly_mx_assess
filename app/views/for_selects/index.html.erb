@@ -1,40 +1,86 @@
-<h1>Listing for_selects</h1>
-<p><%= flash[:notice] %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Code</th>
-      <th>Value</th>
-      <th>Text</th>
-      <th>Grouper</th>
-      <th>Option order</th>
-      <th>Facility</th>
-      <th>Code</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div id="divForSelectPageWrapper">
+<div id="divForSelectPageInnerWrapper">
 
-  <tbody>
-    <% @for_selects.each do |for_select| %>
-      <tr>
-        <td><%= for_select.code %></td>
-        <td><%= for_select.value %></td>
-        <td><%= for_select.text %></td>
-        <td><%= for_select.grouper %></td>
-        <td><%= for_select.option_order %></td>
-        <td><%= for_select.facility %></td>
-        <td><%= for_select.code %></td>
-        <td><%= link_to 'Show', for_select %></td>
-        <td><%= link_to 'Edit', edit_for_select_path(for_select) %></td>
-        <td><%= link_to 'Destroy', for_select, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div id="divForSelectAsideRt">  
+    <div id="ForSelectAsideRtTitle"><h2>For Selects Data</h2></div>
+    <div id="ForSelectAsideRtErrors"></div>  
+    <form id="fForSelectAsideRt">
+      <fieldset>
+        <input id="id" type="hidden" name="id" />
+        <div class="field"> 
+          <label for="facility" class="label">facility</label>      
+          <select id="slt_for_select_Rt_facility" name="slt_for_select_Rt_facility"></select>          
+        </div>
+        <div class="field">
+          <label for="ftx_for_select_Rt_code" class="label">Code</label>
+          <input id="ftx_for_select_Rt_code" name="ftx_for_select_Rt_code" type="text"/>
+        </div>         
+        <div class="field">
+          <label for="ftx_for_select_value" class="label">Value</label>
+          <input id="ftx_for_select_Rt_value" name="ftx_for_select_Rt_value" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_for_select_text" class="label">Text</label>
+          <input id="ftx_for_select_Rt_text" name="ftx_for_select_Rt_text" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_for_select_grouper" class="label">Grouper</label>
+          <input id="ftx_for_select_Rt_grouper" name="ftx_for_select_Rt_grouper" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_for_select_option_order" class="label">Order</label>
+          <input id="ftx_for_select_option_order" name="ftx_for_select_option_order" type="text" />    
+        </div>
+        <div>
+          <input id="b_for_select_Rt_Submit" type="submit" value="x">
+          <input id="b_for_select_Rt_Back" type="button" value="Back">
+        </div>
+      </fieldset>         
+    </form>  
+  </div>  <!-- id="divForSelectAsideRt" -->
 
-<br>
+  <form id="fForSelectSearch">   
+    <div id="ForSelectSearchTitle"><h2>Search Criteria</h2></div> 
+    <div class="field">
+      <label>Facility</label>
+      <select id="slt_for_selects_S_facility" name="slt_for_selects_S_facility"></select>
+    </div>
+    <div class="field">
+      <label>Value</label>
+      <input id="ftx_for_selects_S_value" type="text" />             
+    </div>
+    <div class="field"> 
+      <label>Grouper</label>      
+      <input id="ftx_for_selects_S_grouper" type="text" />        
+    </div>
+    <div class="field">
+      <label>Code</label>
+      <input id="ftx_for_selects_S_code" type="text" />                
+    </div>
+    <div class="field">
+      <label>Text</label>
+      <input id="ftx_for_selects_S_text" type="text" />          
+    </div>
+    <div class="field"> 
+      <label>Option order</label>
+      <input id="ftx_for_selects_S_option_order" type="text" />
+    </div>
+    <input id="b_for_selects_select" type="submit" value="Search" />  
+  </form>  <!-- id="fForSelectSearch" -->
+  <div id="divGrid_for_selects"></div>
 
-<%= link_to 'New For select', new_for_select_path %>
+
+
+  <section id="divBelow">
+    BELOW
+  </section>
+  
+</div> <!-- id="divForSelectPageInnerWrapper" -->
+</div> <!-- id="divForSelectPageWrapper" -->
+
+
+
+
+
+

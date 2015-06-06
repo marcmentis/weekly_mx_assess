@@ -6,7 +6,14 @@ Rollify::Application.routes.draw do
   get "widgets" => 'widgets#index'
 
   get '/patients_search' => 'patients#complex_search', as: :complex_search_patients
-  get '/for_selects_search' => 'for_selects#options_search', as: :options_search
+  get '/for_selects_options_search' => 'for_selects#options_search', as: :options_search
+  get '/for_selects_search' => 'for_selects#complex_search', as: :complex_search_for_selects
+  get '/users_search' => 'users#complex_search', as: :complex_search_users
+  get '/users_roles/:id' => 'users#user_roles', as: :user_roles
+  post '/users_add_role/:id' => 'users#add_role', as: :add_role
+  delete '/users_remove_role/:id' => 'users#remove_role', as: :remove_role
+  get '/roles' => 'roles#all_roles', as: :all_roles
+  get '/roles_users/' => 'roles#all_users', as: :all_users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

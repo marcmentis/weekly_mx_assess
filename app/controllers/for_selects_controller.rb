@@ -1,6 +1,7 @@
 class ForSelectsController < ApplicationController
+  include JqgridHelper
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
-  before_action :check_session
+  # before_action :check_session
   # after_action :verify_authorized
   # def pundit_user
   #   current_user
@@ -20,18 +21,58 @@ class ForSelectsController < ApplicationController
     # end
 
     # authorize ForSelect
-    @for_selects = ForSelect.all
+    # @for_selects = ForSelect.all
+    # if params[:page] != nil
+    #   total_query_count = ForSelect.all.count     
+    #   # Run query and extract just those rows needed
+    #   extract = ForSelect.order("#{params[:sidx]} #{params[:sord]}")
+    #                     .limit(params[:rows].to_i)
+    #                     .offset((params[:page].to_i - 1) * params[:rows].to_i)
+    #   # Create jsGrid object from 'extract' data
+    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    # end
+
+    # respond_to do |format|
+    #   format.html
+    #   format.json {render json: @jsGrid_obj }
+    # end
+  end
+
+  def complex_search
+    conditions = ForSelect.all
+    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
+    conditions = conditions.where("code LIKE ?", ''+params[:code]+'%') if params[:code]!= ''
+    conditions = conditions.where("value LIKE ?", ''+params[:value]+'%') if params[:value]!= ''
+    conditions = conditions.where("text LIKE ?", ''+params[:text]+'%') if params[:text]!= ''
+    conditions = conditions.where("grouper LIKE ?", ''+params[:grouper]+'%') if params[:grouper]!= ''
+    conditions = conditions.where("option_order LIKE ?", ''+params[:option_order]+'%') if params[:option_order]!= ''
+
+    total_query = conditions
+    total_query_count = total_query.count
+
+# Run query and extract just those rows needed
+      extract = conditions
+                    .order("#{params[:sidx]} #{params[:sord]}")
+                    .limit(params[:rows].to_i)
+                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
+      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    respond_to do |format|
+      format.html
+      format.json {render json: @jsGrid_obj }
+    end
   end
 
   def options_search
+    # byebug
     options = ForSelect.all
     options = options.where("code = :code", {code: params[:code]}) if params[:code]!=''
+    options = options.where("facility = :facility", {facility: params[:facility]}) if params[:facility] != ''
     # options = options.where("grouper = :grouper",{grouper: params[:grouper]}) if params[:grouper]!=''
     options = options.order("option_order")
 
     @options = options
     respond_to do |format|
-      format.html
+      # format.html
       format.json {render json: @options }
     end
   end
@@ -58,7 +99,7 @@ class ForSelectsController < ApplicationController
     respond_to do |format|
       if @for_select.save
         format.html { redirect_to @for_select, notice: 'For select was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @for_select }
+        format.json { head :no_content}
       else
         format.html { render action: 'new' }
         format.json { render json: @for_select.errors, status: :unprocessable_entity }
@@ -69,6 +110,7 @@ class ForSelectsController < ApplicationController
   # PATCH/PUT /for_selects/1
   # PATCH/PUT /for_selects/1.json
   def update
+    # byebug
     respond_to do |format|
       if @for_select.update(for_select_params)
         format.html { redirect_to @for_select, notice: 'For select was successfully updated.' }
