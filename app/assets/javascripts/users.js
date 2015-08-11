@@ -102,7 +102,8 @@ if($('body.users').length) {
 
 	//SELECTS
 		//TO DO show appropriate only if Admin2
-		$('#slt_user_S_facility, #slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+		// $('#slt_user_S_facility, #slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+		$('#slt_user_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
 
 
 	// BUTTONS
@@ -158,8 +159,30 @@ if($('body.users').length) {
 
 
 	// RUN ON OPENING
+	if ($('#session-admin3').val() == 'true') {
+		facility = '-1';
+	} else { 
+		facility = $('#session-facility').val();
+	};
+	//Make sure 'facility' select is populated before running 'complex_search1'
+		$('#slt_user_S_facility').mjm_addOptions('facility', {
+											firstLine: 'All Facilities', 
+											complete: function(){
+												$('#slt_user_S_facility').val(''+facility+'');
+												user_complex_search1();
+												if ($('#session-admin3').val() !== 'true'){
+													$('#slt_user_S_facility').attr("disabled", true)
+												};
+											}
+										})
+
+
+
 	// user_refreshgrid('nil');
-	user_complex_search1();
+
+	//Only want to run 'user_complex_search1() after select filled i.e., synchranously'
+	// $('#slt_user_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+	// user_complex_search1();
 
 
 	//*****************************************************
@@ -219,6 +242,7 @@ if($('body.users').length) {
 							  data: data_for_params,
 							  //type: 'POST',
 							  type: 'GET',
+							  cache: false,
 							  dataType: 'json'
 						}).done(function(data){
 							user_clearFields();
@@ -308,14 +332,29 @@ if($('body.users').length) {
 			onClickButton: function(){
 				roles_clearFields();
 				if(ID == '') {
-					alert('Please select User from "Users" table');
+					swal('Please select User', ' from "Users" table', 'warning');
+					// alert('Please select User from "Users" table');
 					return false;
 				} else {
-					if(confirm("Are you sure you want to delete this user")){
-						user_ajax1('/users/'+ID+'', 'DELETE');	
-					} else {
-						return true;
-					};
+					swal({   
+							title: "Are you sure?",   
+							text: "You will not be able to recover this user!",   
+							type: "warning",   
+							showCancelButton: true,   
+							confirmButtonColor: "#DD6B55",   
+							confirmButtonText: "Yes, delete it!",   
+							closeOnConfirm: true,
+							closeOnCancel: true 
+						}, 
+						function(){   
+							user_ajax1('/users/'+ID+'', 'DELETE');	
+							swal
+						});
+					// if(confirm("Are you sure you want to delete this user")){
+					// 	user_ajax1('/users/'+ID+'', 'DELETE');	
+					// } else {
+					// 	return true;
+					// };
 				};
 			},
 			position:'last'
@@ -371,6 +410,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			// for_select_refreshgrid('nil');
@@ -405,6 +445,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			var html = '';
@@ -436,6 +477,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			$('#slt_user_R_userRoles').find('option').remove();
@@ -483,6 +525,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			get_user_roles(ID);
@@ -503,6 +546,7 @@ if($('body.users').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			var html = '';

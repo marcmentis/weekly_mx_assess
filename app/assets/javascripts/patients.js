@@ -8,7 +8,7 @@ if ($('body.patients').length) {
 		
 
 	// STYLING
-		$('#divPatientPageWrapper').addClass('pad_3_sides');
+		$('#divPatientPageWrapper').addClass('pad_3_sides')
 		$('#divPatientPageInnerWrapper').addClass('centered')
 										.css({'width':'75em'});
 		$('#divPatientAsideRt').addClass('float_right form_container')
@@ -31,7 +31,7 @@ if ($('body.patients').length) {
 
 	// SELECTS
 		// TO DO Show only if Admin2
-		$('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
+		// $('#slt_S_facility').mjm_addOptions('facility', {firstLine: 'All Facilities'})
 		// Show appropriate wards in
 		$('#slt_S_facility').change(function(){
 			var chosen_facility = $('#slt_S_facility').val();
@@ -90,11 +90,6 @@ if ($('body.patients').length) {
 			}
 		});
 
-
-
-
-
-
 	// BUTTONS
 		//Submit complex search on fPatientSearch using hidden submit button
 		// $('#btnSubmit').click(function(e){
@@ -109,13 +104,37 @@ if ($('body.patients').length) {
 
 	
 	// RUN ON OPENING
+	if ($('#session-admin3').val() == 'true') {
+		facility = '-1';
+		//Make sure 'facility' and 'ward' selects are populated before running 'complex_search1'
+		$('#slt_S_facility').mjm_addOptions('facility', {
+											firstLine: 'All Facilities', 
+											complete: function(){
+												on_opening();
+											}
+										})
+		$('#slt_S_ward').mjm_addOptions('ward', {firstLine: 'All Wards', facility: '-1', group: true})
+	} else { 
+		facility = $('#session-facility').val();
+		//Make sure 'facility' and 'ward' selects are populated before running 'complex_search1'
+		$('#slt_S_facility').mjm_addOptions('facility', {
+											firstLine: 'All Facilities',
+											complete: function(){
+												on_opening();
+											}
+										});
+	};
+
+
+
 	// refreshgrid('nil');
-	complex_search1();
+	// complex_search1();
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function refreshgrid(url){
 
-		if (url == 'nil') {url = '/patients'};
+		// if (url == 'nil') {url = '/patients'};
+		if (url == 'nil') {url = "/patients_search?firstname=&lastname=&identifier=&facility=-1&site=-1"}
 
 		
 		//Create Table and Div for grid and navigation "pager" 
@@ -126,14 +145,14 @@ if ($('body.patients').length) {
 			url: url,
 			datatype:"json",
 			mtype:"GET",
-			colNames:["id","FirstName","LastName","C #","Facility", "Ward"],
+			colNames:["id","LastName","FirstName","C #","Facility", "Ward"],
 			colModel:[
 				{name:"id",index:"id",width:55, hidden:true},
-				{name:"firstname",index:"firstname",width:150,align:"center"},
 				{name:"lastname",index:"lastname",width:150,align:"center",editable:true},
-				{name:"number",index:"number",width:100,align:"center"},
+				{name:"firstname",index:"firstname",width:150,align:"center"},
+				{name:"identifier",index:"identifier",width:100,align:"center"},
 				{name:"facility",index:"facility",width:100,align:"center"},
-				{name:"ward",index:"ward",width:150,align:"center"}
+				{name:"site",index:"site",width:150,align:"center"}
 			],
 			editurl:"/patient/update",
 			pager:"#divPager",
@@ -142,7 +161,7 @@ if ($('body.patients').length) {
 			altRows: true,
 			rowNum:15,
 			rowList:[15,25,40],
-			sortname:"firstname",
+			sortname:"lastname",
 			sortorder:"asc",
 			viewrecords:true,
 			gridview: true, //increased speed can't use treeGrid, subGrid, afterInsertRow
@@ -163,6 +182,7 @@ if ($('body.patients').length) {
 							  data: data_for_params,
 							  //type: 'POST',
 							  type: 'GET',
+							  cache: false,
 							  dataType: 'json'
 						}).done(function(data){
 							clearFields();
@@ -171,9 +191,9 @@ if ($('body.patients').length) {
 							$('#id').val(data.id);
 							$('#firstname').val(data.firstname);
 							$('#lastname').val(data.lastname);
-							$('#number').val(data.number);
+							$('#number').val(data.identifier);
 							$('#facility').val(data.facility);
-							$('#ward').val(data.ward);
+							$('#ward').val(data.site);
 
 													  
 						}).fail(function(){
@@ -243,6 +263,24 @@ if ($('body.patients').length) {
 		});
 	};
 
+	function on_opening () {
+		//After populating 'facility' select, make sure 'ward' select populated before
+			// running 'complex_search'
+		$('#slt_S_facility').val(''+facility+'');
+		$('#slt_S_ward').mjm_addOptions('ward', {
+								firstLine: 'All Wards', 
+								facility: facility, 
+								group: true,
+								complete: function(){
+									complex_search1();
+									if ($('#session-admin3').val() !== 'true') {
+										$('#slt_S_facility').attr("disabled", true);
+									};		
+								}
+								});
+		
+	};
+
 	function clearFields(){
 		$('#firstname, #lastname, #number, #facility, #ward').val('');
 		$('#PatientAsideRtErrors').html('').hide();
@@ -256,13 +294,14 @@ if ($('body.patients').length) {
 		var ward = $('#ward').val();
 		// Create strong parameter
 		data_for_params ={patient: {'firstname': firstname, 'lastname': 
-						lastname, 'number': number, 
-				  	    'facility': facility, 'ward': ward}}
+						lastname, 'identifier': number, 
+				  	    'facility': facility, 'site': ward}}
 
 		$.ajax({
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			// refreshgrid('nil');
@@ -296,7 +335,7 @@ if ($('body.patients').length) {
 		var ward = $('#slt_S_ward').val();
 
 		// $("#gridGrid").remove();         
-		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&number='+number+'&facility='+facility+'&ward='+ward+''
+		url = '/patients_search?firstname='+firstname+'&lastname='+lastname+'&identifier='+number+'&facility='+facility+'&site='+ward+''
 		refreshgrid(url);	
 	};
 

@@ -52,7 +52,9 @@ if ($('body.widgets').length) {
 		$('#txbText1').addClass('texts').css({'width':'100px'})
 
 	//textarea
-		$('#txaTextArea1').addClass('texts').css({'cols':'30','rows':'10'})
+		$('#txaTextArea1').addClass('texts')
+			.height('10em')
+			.width('20em')
 
 	//labels
 		$('[id^=lbl]').addClass('labels');

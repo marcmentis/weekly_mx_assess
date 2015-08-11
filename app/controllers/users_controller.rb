@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  include JqgridHelper
+
   before_action :set_user, only: [:show, :edit, :update, :destroy, :user_roles, :add_role, :remove_role]
 
   # GET /users
@@ -12,39 +12,24 @@ class UsersController < ApplicationController
     #   extract = User.order("#{params[:sidx]} #{params[:sord]}")
     #                 .limit(params[:rows].to_i)
     #                 .offset((params[:page].to_i - 1) * params[:rows].to_i)
-    #   # Create jsGrid object from 'extract' data
-    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    #   # Create jqGrid object from 'extract' data
+    #   @jqGrid_obj = create_jqGrid_obj(extract, params, total_query_count)
     # end
 
     # respond_to do |format|
     #   format.html
-    #   format.json {render json: @jsGrid_obj }
+    #   format.json {render json: @jqGrid_obj }
     # end
   end
 
   # GET /users_search.json
   def complex_search
-    conditions = User.all
-    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
-    conditions = conditions.where("firstname LIKE ?", ''+params[:firstname]+'%') if params[:firstname]!= ''
-    conditions = conditions.where("lastname LIKE ?", ''+params[:lastname]+'%') if params[:lastname]!= ''
-    conditions = conditions.where("authen LIKE ?", ''+params[:authen]+'%') if not params[:authen].blank?
-    # conditions = conditions.where("email LIKE ?", ''+params[:email]+'%') if not params[:email].blank?
-    conditions = conditions.where("firstinitial LIKE ?", ''+params[:firstinitial]+'%') if params[:firstinitial]!= ''
-    conditions = conditions.where("middleinitial LIKE ?", ''+params[:middleinitial]+'%') if params[:middleinitial]!= ''
+    user = User.new
+    @jqGrid_obj = user.get_jqGrid_obj(params, session[:admin3])
 
-    total_query = conditions
-    total_query_count = total_query.count
-
-    # Run query and extract just those rows needed
-      extract = conditions
-                    .order("#{params[:sidx]} #{params[:sord]}")
-                    .limit(params[:rows].to_i)
-                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
     respond_to do |format|
       format.html
-      format.json {render json: @jsGrid_obj }
+      format.json {render json: @jqGrid_obj }
     end
   end
 

@@ -14,6 +14,8 @@ if($('body.for_selects').length) {
 								.hide();
 		$('#ForSelectAsideRtErrors').addClass('error_explanation')
 									.hide();
+		$('#ForSelectErrors').addClass('error_explanation')
+							 .hide();
 
 		$('#fForSelectSearch').addClass('form_container').css({'width':'692px'});
 		// Can't use .hide() as wont work with IE 10
@@ -27,8 +29,9 @@ if($('body.for_selects').length) {
 
 	//SELECTS
 		//TO DO show appropriate only if Admin2
-		$('#slt_for_selects_S_facility, #slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
-
+		// $('#slt_for_selects_S_facility, #slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+			
+		$('#slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
 		//Filter when facility changed
 		$('#slt_for_selects_S_facility').change(function(){
 			for_select_complex_search1();
@@ -87,8 +90,30 @@ if($('body.for_selects').length) {
 		});
 
 	// RUN ON OPENING
-	// for_select_refreshgrid('nil');
-	for_select_complex_search1();
+	if ($('#session-admin3').val() == 'true') {
+		facility = '-1';
+	} else { 
+		facility = $('#session-facility').val();
+	};
+	//Make sure 'facility' select is populated before running 'complex_search1'
+		$('#slt_for_selects_S_facility').mjm_addOptions('facility', {
+											firstLine: 'Facilities', 
+											complete: function(){
+												$('#slt_for_selects_S_facility').val(''+facility+'');
+												for_select_complex_search1();
+												if ($('#session-admin3').val() !== 'true'){
+													$('#slt_for_selects_S_facility').attr("disabled", true)
+												};
+											}
+										})
+
+	//Only want to run 'for_select_complex_search1() after select filled i.e., synchranously'
+	// $('#slt_for_selects_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+	// for_select_complex_search1();
+
+
+	
+	
 	//*****************************************************
 	//FUNCTIONS CALLED FROM ABOVE
 	function for_select_refreshgrid(url){
@@ -142,6 +167,7 @@ if($('body.for_selects').length) {
 							  data: data_for_params,
 							  //type: 'POST',
 							  type: 'GET',
+							  cache: false,
 							  dataType: 'json'
 						}).done(function(data){
 							for_select_clearFields();
@@ -161,11 +187,28 @@ if($('body.for_selects').length) {
 						});
 				},
 
-				loadError: function (jqXHR, textStatus, errorThrown) {
-			        alert('HTTP status code: ' + jqXHR.status + '\n' +
-			              'textStatus: ' + textStatus + '\n' +
-			              'errorThrown: ' + errorThrown);
-			        alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
+				loadError: function (jqXHR, textStatus, errorThrown) {				
+			        	if (jqXHR.responseText.includes("Pundit::NotAuthorizedError")) {
+			        		msg = {"error": "User not authorized"};
+					        
+			        	} else {
+			        		msg = {'HTTP status code': '' + jqXHR.status + '', 
+			        		       'textStatus': '' + textStatus + '', 
+			        		      'errorThrown ': '' + errorThrown +''
+			        		  };
+			        	};
+			        	ajax_error1('Search Error', msg, 'ForSelectErrors', '3000')
+			        // var newHTML;
+			        // newHTML = '<h3>Search Error</h3>';	
+			        // newHTML += '<ul>';
+		        	// $.each(msg, function(key, value){
+				       //  	newHTML += '<li>'+ value +'</li>';
+				       //  });
+			        // newHTML += '</ul>';
+			        // $('#ForSelectErrors').show().html(newHTML)
+			        // setTimeout(function(){
+			        // 	$('#ForSelectErrors').html('').hide();
+			        // }, 3000);		
 			    },
 
 			    //The JASON reader. This defines what the JSON data returned should look 
@@ -245,6 +288,7 @@ if($('body.for_selects').length) {
 			url: url,
 			type: type,
 			data: data_for_params,
+			cache: false,
 			dataType: 'json'
 		}).done(function(data){
 			// for_select_refreshgrid('nil');
@@ -258,6 +302,7 @@ if($('body.for_selects').length) {
 	  //             'errorThrown: ' + errorThrown);
 	  //       alert('HTTP message body (jqXHR.responseText): ' + '\n' + jqXHR.responseText);
 	        var msg = JSON.parse(jqXHR.responseText)
+
 	        var newHTML;
 	        newHTML = '<h3>Validation Error</h3>';	
 	        newHTML += '<ul>';        
@@ -276,7 +321,6 @@ if($('body.for_selects').length) {
 		var text = $('#ftx_for_selects_S_text').val();
 		var grouper = $('#ftx_for_selects_S_grouper').val();
 		var option_order = $('#ftx_for_selects_S_option_order').val();
-
 		// $("#gridGrid").remove();         
 		url = '/for_selects_search?facility='+facility+'&code='+code+'&value='+value+'&text='+text+'&grouper='+grouper+'&option_order='+option_order+''
 		for_select_refreshgrid(url);	

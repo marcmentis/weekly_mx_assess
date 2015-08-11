@@ -17,6 +17,7 @@
  *= require jquery-ui/button
  *= require ../../../vendor/assets/stylesheets/ui.jqgrid.css
  *= require ../../../vendor/assets/stylesheets/superfish.css
+ *= require ../../../vendor/assets/stylesheets/sweetalert.css
  *= require jquery-ui/redmond
  *= require reset
  *= require_tree ./anyorder

@@ -1,5 +1,5 @@
 class ForSelectsController < ApplicationController
-  include JqgridHelper
+
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
   # before_action :check_session
   # after_action :verify_authorized
@@ -28,37 +28,23 @@ class ForSelectsController < ApplicationController
     #   extract = ForSelect.order("#{params[:sidx]} #{params[:sord]}")
     #                     .limit(params[:rows].to_i)
     #                     .offset((params[:page].to_i - 1) * params[:rows].to_i)
-    #   # Create jsGrid object from 'extract' data
-    #   @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    #   # Create jqGrid object from 'extract' data
+    #   @jqGrid_obj = create_jqGrid_obj(extract, params, total_query_count)
     # end
 
     # respond_to do |format|
     #   format.html
-    #   format.json {render json: @jsGrid_obj }
+    #   format.json {render json: @jqGrid_obj }
     # end
   end
 
   def complex_search
-    conditions = ForSelect.all
-    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
-    conditions = conditions.where("code LIKE ?", ''+params[:code]+'%') if params[:code]!= ''
-    conditions = conditions.where("value LIKE ?", ''+params[:value]+'%') if params[:value]!= ''
-    conditions = conditions.where("text LIKE ?", ''+params[:text]+'%') if params[:text]!= ''
-    conditions = conditions.where("grouper LIKE ?", ''+params[:grouper]+'%') if params[:grouper]!= ''
-    conditions = conditions.where("option_order LIKE ?", ''+params[:option_order]+'%') if params[:option_order]!= ''
+    for_select = ForSelect.new
+    @jqGrid_obj = for_select.get_jqGrid_obj(params, session[:admin3])
 
-    total_query = conditions
-    total_query_count = total_query.count
-
-# Run query and extract just those rows needed
-      extract = conditions
-                    .order("#{params[:sidx]} #{params[:sord]}")
-                    .limit(params[:rows].to_i)
-                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
     respond_to do |format|
       format.html
-      format.json {render json: @jsGrid_obj }
+      format.json {render json: @jqGrid_obj }
     end
   end
 

@@ -1,4 +1,6 @@
 Rollify::Application.routes.draw do
+  resources :mx_assessments
+
   get "static_pages/home"
   resources :patients
   resources :users
@@ -14,6 +16,10 @@ Rollify::Application.routes.draw do
   delete '/users_remove_role/:id' => 'users#remove_role', as: :remove_role
   get '/roles' => 'roles#all_roles', as: :all_roles
   get '/roles_users/' => 'roles#all_users', as: :all_users
+
+  get '/mxa_date_history/' => 'mx_assessments#date_history', as: :mxa_date_history
+  get '/mxa_pat_lists/' => 'mx_assessments#patient_lists', as: :mxa_pat_lists
+  get '/mxa_pat_data/' => 'mx_assessments#get_pat_data', as: :mxa_pat_data
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

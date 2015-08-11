@@ -22,7 +22,9 @@
 //= require jquery.jqGrid.min.js
 //= require hoverintent.js
 //= require superfish.js
+//= require sweetalert.min.js
 //= require jquery.validate.min.js
+//= require moment.js
 //= require mjm.js
 //= require_tree .
 //= require turbolinks

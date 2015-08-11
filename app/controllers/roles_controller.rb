@@ -1,5 +1,4 @@
 class RolesController < ApplicationController
-  include JqgridHelper
   before_action :set_user, only: [:destroy]
 
   # GET /roles/
