@@ -1,43 +1,141 @@
-<h1>Listing users</h1>
+<div id="divUserPageWrapper">
+<div id="divUserPageInnerWrapper">
 
-<table>
-  <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Authen</th>
-      <th>Facility</th>
-      <th>Email</th>
-      <th>Firstinitial</th>
-      <th>Middleinitial</th>
-      <th>Updated by</th>
-      <th>Facility</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <div id="divUserAsideRt">
+    <div id="UserAsideRtTitle"><h2>User Data</h2></div>
+    <div id="UserAsideRtErrors"></div>
+    <form id="fUserAsideRt">
+      <fieldset>
+        <input id="id" type="hidden" name="id" />
+        <div class="field"> 
+          <label for="facility" >Facility</label>      
+          <select id="slt_user_Rt_facility" name="slt_user_Rt_facility"></select>          
+        </div>
+        <div class="field">
+          <label for="ftx_user_Rt_firstname" >FirstName</label>
+          <input id="ftx_user_Rt_firstname" name="ftx_user_Rt_firstname" type="text"/>
+        </div>         
+        <div class="field">
+          <label for="ftx_user_Rt_lastname" >LastName</label>
+          <input id="ftx_user_Rt_lastname" name="ftx_user_Rt_lastname" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_user_Rt_authen" >Authen</label>
+          <input id="ftx_user_Rt_authen" name="ftx_user_Rt_authen" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_user_Rt_email" >eMail</label>
+          <input id="ftx_user_Rt_email" name="ftx_user_Rt_email" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_user_Rt_firstinitial" >FI</label>
+          <input id="ftx_user_Rt_firstinitial" name="ftx_user_Rt_firstinitial" type="text" />    
+        </div>
+        <div class="field">
+          <label for="ftx_user_Rt_middleinitial" >MI</label>
+          <input id="ftx_user_Rt_middleinitial" name="ftx_user_Rt_middleinitial" type="text" />    
+        </div>
+        <div>
+          <input id="b_user_Rt_Submit" type="submit" value="x">
+          <input id="b_user_Rt_Back" type="button" value="Back">
+        </div>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.firstname %></td>
-        <td><%= user.lastname %></td>
-        <td><%= user.authen %></td>
-        <td><%= user.facility %></td>
-        <td><%= user.email %></td>
-        <td><%= user.firstinitial %></td>
-        <td><%= user.middleinitial %></td>
-        <td><%= user.updated_by %></td>
-        <td><%= user.facility %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </fieldset>
+    </form>
+      
+  </div>  <!-- id="divUserAsideRt" -->
 
-<br>
 
-<%= link_to 'New User', new_user_path %>
+  <form id="fUserSearch">
+    <div id="UserSearchTitle"><h2>Search Criteria</h2></div> 
+    <div class="field">
+      <label>Facility</label>
+      <select id="slt_user_S_facility" name="slt_user_S_facility"></select>
+    </div>
+    <div class="field">
+      <label>FirstName</label>
+      <input id="ftx_user_S_firstname" type="text" />             
+    </div>
+    <div class="field"> 
+      <label>LastName</label>      
+      <input id="ftx_user_S_lastname" type="text" />        
+    </div>
+    <div class="field">
+      <label>Authen</label>
+      <input id="ftx_user_S_authen" type="text" />                
+    </div>
+    <!-- <div class="field">
+      <label>eMail</label>
+      <input id="ftx_user_S_email" type="text" />          
+    </div> -->
+    <div class="field"> 
+      <label>FirstInit</label>
+      <input id="ftx_user_S_firstinitial" type="text" />
+    </div>
+    <div class="field"> 
+      <label>MidInit</label>
+      <input id="ftx_user_S_middleinitial" type="text" />
+    </div>
+    <input id="b_user_select" type="submit" value="Search" /> 
+  </form> <!-- id="fUserSearch" -->
+  <div id="divUserGrid"></div>
+
+
+  <div id="divUserRwrapper"> 
+    <form id="fUserR">
+    <fieldset>
+      <div>
+        <h2>Roles  <span id="s_user_R_titleName"></span></h2>
+        
+      </div>
+      
+      <div class="field_roles"> 
+        <label><h3><span id="s_user_R_name"></span></h3></label>
+        <div>
+          <select id="slt_user_R_userRoles" name="slt_user_R_userRoles"></select>
+        </div>
+        <div class="spacer_vertical_small">
+          <input id="b_user_R_addRole" type="button" value="Add Role"></input>
+        </div>
+        <div class="spacer_vertical_small">
+          <input id="b_user_R_removeRole" type="button" value="Remove Role">
+        </div>
+        <div class="spacer_vertical_small">
+          <input id="txt_user_R_newRole" type="text" />
+          <input id="b_user_R_newRole" type="button" value="New"></input>
+        </div>
+      </div>
+
+      <div class="field_roles">
+        <label><h3>All Roles</h3></label>
+        <div>
+          <select id="slt_user_R_allRoles" name="slt_user_R_allRoles"></select>
+        </div> 
+      </div>
+
+      <div class="field_roles">
+        <label><h3>Users with Role</h3></label>
+        <select id="slt_user_R_usersWithRoles" name="slt_user_R_usersWithRoles">
+        </select>  
+      </div>
+    </fieldset> 
+    </form>
+    
+
+
+
+ <!--    <div id="divUserRLt">
+      
+    </div>
+    <div id="divUserRCnr">
+           
+      
+    </div>
+    <div id="divUserRRt">
+      
+    </div> -->
+      
+      <!-- <div id="divUserBreaker"></div> -->
+</div> <!-- id="divUserPageWrapper" -->
+</div> <!-- id="divUserPageInnerWrapper" -->
+

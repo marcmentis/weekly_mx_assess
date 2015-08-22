@@ -1,10 +1,36 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :user_roles, :add_role, :remove_role]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    # @users = User.all
+    # if params[:page] != nil
+    #   total_query_count = User.all.count     
+    #   # Run query and extract just those rows needed
+    #   extract = User.order("#{params[:sidx]} #{params[:sord]}")
+    #                 .limit(params[:rows].to_i)
+    #                 .offset((params[:page].to_i - 1) * params[:rows].to_i)
+    #   # Create jqGrid object from 'extract' data
+    #   @jqGrid_obj = create_jqGrid_obj(extract, params, total_query_count)
+    # end
+
+    # respond_to do |format|
+    #   format.html
+    #   format.json {render json: @jqGrid_obj }
+    # end
+  end
+
+  # GET /users_search.json
+  def complex_search
+    user = User.new
+    @jqGrid_obj = user.get_jqGrid_obj(params, session[:admin3])
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @jqGrid_obj }
+    end
   end
 
   # GET /users/1
@@ -29,7 +55,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
+        format.json { head :no_content}
       else
         format.html { render action: 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -58,6 +84,33 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
+    end
+  end
+
+  # USER-ROLE RELATIONSHIP
+  # GET/users/1.json
+  def user_roles
+    @user_roles = @user.roles.order('name')
+    respond_to do |format|
+      format.json {render json: @user_roles }
+    end
+  end
+
+  # POST /users_add_role/1.json
+  def add_role
+    role_name = params[:user][:role_name]
+    @user.add_role ''+role_name+''
+    respond_to do |format|
+      format.json {render json: @user}
+    end
+  end
+
+  # DELETE /users_remove_role/1.json
+  def remove_role
+    role_name = params[:user][:role_name]
+    @user.remove_role ''+role_name+''
+    respond_to do |format|
+      format.json {render json: @user}
     end
   end
 

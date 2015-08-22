@@ -1,86 +1,82 @@
 
-<div id="divTotalWrapper2">
+<div id="divPatientPageWrapper">
+<div id="divPatientPageInnerWrapper">
 
-  <aside id="divRt">
-    <div id="divRtPad">
-      <div id="divFields">
-        <form id="fFields">
-          <div class="field">
-            <input id="id" type="hidden" />
-          </div>
-          <div class="field">
-              <input id="firstname" type="text" />
-              <label>first_name</label>      
-          </div>
-          <div class="field">
-              <input id="lastname" type="text" />
-              <label>last_name</label> (Client Validation Added)    
-          </div>
-          <div class="field">
-            <input id="number" type="text" />
-            <label>number</label>
-          </div>
-          <div class="field">       
-            <input id="facility" type="text" />
-            <label>facility</label>
-          </div>
-          <div class="field">       
-            <input id="ward" type="text" />
-            <label>ward</label>
-          </div>
-          <div id="divButtonEdit" class="actions">
-              <input id="bEdit" type="button" value="Edit Inpatient">
-              <input id="bNew" type="button" value="New Inpatient">
-              <input id="bDelete" type="button" value="Delete Inpatient">
-              <input id="bBack" type="button" value="Back">
-          </div>
-      </div> 
-    </div>
-    
-  </aside>
-
-
-  <article id="divMain">
-    <div id="divMainPad">
-      <div id="divSearch">
-        <form id="fSearch">
-          <div class="field">
-              <input id="s_firstname" type="text" />
-              <label>first_name</label>      
-          </div>
-          <div class="field">
-              <input id="s_lastname" type="text" />
-              <label>last_name</label>    
-          </div>
-          <div class="field">
-            <input id="s_number" type="text" />
-            <label>number</label>
-          </div>
-          <div class="field">       
-            <input id="s_facility" type="text" />
-            <label>facility</label>
-          </div>
-          <div class="field">       
-            <input id="s_ward" type="text" />
-            <label>ward</label>
-          </div>
-          <input id="bSearch" type="button" value="Search">
-        </form>
+  <div id="divPatientAsideRt">
+    <div id="PatientAsideRtTitle"><h2>Patient Data</h2></div>
+    <div id="PatientAsideRtErrors"></div>       
+    <form id="fPatientAsideRt">
+      <fieldset>
+        <input id="id" type="hidden" name="id" />
+        <div class="field">
+          <label for="firstname" class="label">first_name</label>
+          <input id="firstname" name="firstname" type="text"/>
+        </div>         
+        <div class="field">
+          <label for="lastname" class="label">last_name</label>
+          <input id="lastname" name="lastname" type="text" />    
+        </div>
+        <div class="field">
+          <label for="number" class="label">number</label>
+          <input id="number" name="number" type="text" />            
+        </div>
+        <div class="field"> 
+          <label for="facility" class="label">facility</label>      
+          <input id="facility" name="facility" type="text" />          
+        </div>
+        <div class="field">   
+          <label for="ward" class="label">ward</label>    
+          <input id="ward" name="ward" type="text" />          
+        </div>
+        
+        <div>
+          <input id="bPatientSubmit" type="submit" value="x">
+          <input id="bPatientBack" type="button" value="Back">
+        </div>
+      </fieldset>         
+    </form>
+  </div>
+  <!-- <div> -->
+    <form id="fPatientSearch">
+      <div id="PatientSearchTitle"><h2>Search Criteria</h2></div>
+      <div class="field">
+        <label>first_name</label>
+        <input id="ftx_S_Firstname" type="text" />                
       </div>
-
-    </div>
+      <div class="field">
+        <label>last_name</label>
+        <input id="ftx_S_lastname" type="text" />             
+      </div>
+      <div class="field">
+        <label>number</label>
+        <input id="ftx_S_number" type="text" />          
+      </div>
+      <div class="field"> 
+        <label>facility</label>      
+        <select id="slt_S_facility" name="slt_S_facility"></select>        
+      </div>
+      <div class="field"> 
+        <label>ward</label>
+        <select id="slt_S_ward" name="slt_S_ward"></select>       
+        <!-- <input id="ftx_S_ward" type="text" /> -->         
+      </div>
+      <input id="btnSubmit" type="submit" value="Search" />  
+    </form>
     <div id="divGrid"></div>
+  <!-- </div> -->
 
-   
-  </article>
+
+
+
+
 
 
   <section id="divBelow">
     BELOW
   </section>
 
-
-</div>
+</div>  <!-- id="divPatientPageInnerWrapper" -->
+</div>  <!-- id="divPatientPageWrapper" -->
 
 
 

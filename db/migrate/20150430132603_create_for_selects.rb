@@ -12,5 +12,7 @@ class CreateForSelects < ActiveRecord::Migration
       t.timestamps
     end
     add_index :for_selects, :code
+    add_index :for_selects, :facility
+    add_index(:for_selects, [:facility, :code], name: 'facility-code')
   end
 end

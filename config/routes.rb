@@ -1,10 +1,28 @@
 Rollify::Application.routes.draw do
+  get "mxa_tracker/index"
+  resources :mx_assessments
+
   get "static_pages/home"
   resources :patients
   resources :users
   resources :for_selects
+  get "widgets" => 'widgets#index'
 
   get '/patients_search' => 'patients#complex_search', as: :complex_search_patients
+  get '/for_selects_options_search' => 'for_selects#options_search', as: :options_search
+  get '/for_selects_search' => 'for_selects#complex_search', as: :complex_search_for_selects
+  get '/users_search' => 'users#complex_search', as: :complex_search_users
+  get '/users_roles/:id' => 'users#user_roles', as: :user_roles
+  post '/users_add_role/:id' => 'users#add_role', as: :add_role
+  delete '/users_remove_role/:id' => 'users#remove_role', as: :remove_role
+  get '/roles' => 'roles#all_roles', as: :all_roles
+  get '/roles_users/' => 'roles#all_users', as: :all_users
+
+  get '/mxa_date_history/' => 'mx_assessments#date_history', as: :mxa_date_history
+  get '/mxa_pat_lists/' => 'mx_assessments#patient_lists', as: :mxa_pat_lists
+  get '/mxa_pat_data/' => 'mx_assessments#get_pat_data', as: :mxa_pat_data
+
+  get '/mxa_tracker_search/' => 'mxa_tracker#complex_search', as: :mxa_tracker_complex_search
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

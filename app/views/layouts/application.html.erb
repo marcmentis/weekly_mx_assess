@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Rollify</title>
+  <title>Inpatient1</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -9,18 +10,27 @@
 </head>
 <body class="<%= params[:controller] %>">
 <%= render 'layouts/header.html.erb' %>
+<input id="session-admin3" type="text" value="<%= session[:admin3] %>"></input>
+<input id="session-facility" value="<%= session[:facility] %>"></input>
+<input id="session-authen" value="<%= session[:authen] %>"></input>
+<input id="session-username" value="<%= session[:user_name] %>"></input>
 <%= yield %>
 
+<%= render 'layouts/footer.html.erb' %>
 <script>
 	 $(function(){
 		// Load the superfish horizontal navigation menu
 		jQuery('ul.sf-menu').superfish();
 
-		// STYLE 
-		$('#divTotalWrapper').addClass('pad_3_sides')
-		$('#header').addClass('header')
-		$('#fig').addClass('float_left pad_3_sides')
-		$('#clear_break').addClass('clear_both');
+		// // STYLE 		
+		$('#divHeaderPageWrapper').addClass('header_page_wrapper')
+		$('#layoutHeader').addClass('header')
+		$('#layoutFig').addClass('float_left pad_3_sides')
+		$('#layoutClear_break').addClass('clear_both');
+
+		$('#divFooterPageWrapper').addClass('pad_3_sides')
+		$('#layoutFooter').addClass('highest_level_blue_background')
+		$('[id^=session]').hide()
 		
 	});
 </script>

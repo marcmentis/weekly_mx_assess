@@ -24,6 +24,14 @@ gem 'jquery-ui-themes'
 gem 'pundit'
 # Multiple Role capability
 gem 'rolify'
+# Got error on omhdev - rake not in bundle
+gem 'rake'
+gem 'faker'
+
+# Oracle for all environments
+gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+gem 'ruby-oci8', '~> 2.1.0'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -39,24 +47,27 @@ end
 group :development, :test do
 	gem 'sqlite3'
 	gem 'mysql2'
-	gem 'rspec-rails', '2.13.1'  #access to RSpec generators
+	gem 'rspec-rails', '3.2.1'  #access to RSpec generators
+	gem 'factory_girl_rails', '4.5.0'  #Factory to generate data
+	# gem 'database_cleaner', '~> 1.3.0'
 	gem 'byebug' # Successor to 'debugger'
-	gem 'faker'
+	# gem 'faker'
+	gem 'shoulda-matchers', require: false # association matchers v2.8.0
 end
 group :test do
-	gem 'selenium-webdriver', '2.35.1'  # capybara dependency
-	gem 'capybara', '2.1.0' #Simulate users BEHAVIOR.
-	gem 'spork-rails', '4.0.0'  # To Speed up RSpec
-	gem 'factory_girl_rails', '4.2.0'  #Factory to generate data
+	# gem 'selenium-webdriver', '2.35.1'  # capybara dependency
+	# gem 'capybara', '2.1.0' #Simulate users BEHAVIOR.
+	# gem 'spork-rails', '4.0.0'  # To Speed up RSpec
+	
 end
 # Can run bundle --without production on Mac and not have Oracle error
 group :production do
-	#DB's NB CHANGE for deploy to VM GITLAB and OMH
+	#DB's NB CHANGE for deploy to VM GITLAB and OMH.
 	# gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
 	# gem 'ruby-oci8', '~> 2.1.0'
-	gem 'mysql2'
-	gem 'sqlite3'
-	gem 'faker'
+	# gem 'mysql2'
+	# gem 'sqlite3'
+	# gem 'faker'
 end
 
 

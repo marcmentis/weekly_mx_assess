@@ -1,8 +1,8 @@
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+  # adapter: sqlite3
+  # database: db/development.sqlite3
+  # pool: 5
+  # timeout: 5000
 
   # adapter: mysql2
   # database: devdeploysuite
@@ -11,6 +11,13 @@ development:
   # encoding: utf8
   # pool: 5
   # socket: /tmp/mysql.sock
+
+  adapter: oracle_enhanced
+  database: xe
+  username: mmentis
+  password: gan1dolf2
+  host: 192.168.59.103
+  port: 49161
 
   # adapter: <%= CONFIG[:adapter1_mysql] %>
   # database: <%= CONFIG[:databaseB] %>
@@ -24,10 +31,19 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
+  # adapter: sqlite3
+  # database: db/test.sqlite3
+  # pool: 5
+  # timeout: 5000
+
+  adapter: mysql2
+  database: testdeploysuite
+  username: root
+  password:
+  encoding: utf8
   pool: 5
-  timeout: 5000
+  socket: /tmp/mysql.sock
+
 
 production:
   # adapter: sqlite3
@@ -43,16 +59,16 @@ production:
   # password: "gan1dolf2"
   # socket_mysql: "/var/run/mysqld/mysqld.sock"
 
-  # adapter: <%= CONFIG[:adapter_db1] %>
-  # database: <%= CONFIG[:database_db1] %>
-  # username: <%= CONFIG[:username_db1] %>
-  # password: <%= CONFIG[:password_db1] %>
+  adapter: <%= CONFIG[:adapter1_oracle] %>
+  database: <%= CONFIG[:database1] %>
+  username: <%= CONFIG[:username1] %>
+  password: <%= CONFIG[:password1] %>
 
 
-  adapter: <%= CONFIG[:adapter1_mysql] %>
-  database: <%= CONFIG[:databaseA] %>
-  username: <%= CONFIG[:usernameA] %>
-  password: <%= CONFIG[:passwordA] %>
-  encoding: <%= CONFIG[:encodingA] %>
-  pool: <%= CONFIG[:poolA] %>
-  socket: <%= CONFIG[:socketA] %>
+  # adapter: <%= CONFIG[:adapter1_mysql] %>
+  # database: <%= CONFIG[:databaseA] %>
+  # username: <%= CONFIG[:usernameA] %>
+  # password: <%= CONFIG[:passwordA] %>
+  # encoding: <%= CONFIG[:encodingA] %>
+  # pool: <%= CONFIG[:poolA] %>
+  # socket: <%= CONFIG[:socketA] %>

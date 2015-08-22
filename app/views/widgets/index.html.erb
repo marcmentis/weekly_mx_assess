@@ -1,0 +1,134 @@
+<h1>Widget Examples/Experiments</h1>
+bare experiment
+
+<div id="widgetPageWrapper">
+	<div id="dbxModalDialog" title="Basic dialog">
+	  <p>This is a modal dialog box</p>
+	  <p>A change without any table changes</p>
+	</div>
+	<div id="dbxDialogConfirm" title="Empty the recycle bin?">
+	  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+	</div>
+
+	<p>
+		Dialogs: <br>
+		<input id="btModalDialog" class="button" type="button" value="ModalDialog">
+		<input id="btDialogConfirm" type="button" value="Confirm">
+	</p>
+	<p>
+		Dates <br>
+		<input id="dtDate1" type="text">
+	</p>
+	<p>
+		Buttons <br>
+		<input id="btButton1" type="button" value="Button1">
+	</p>
+	<p>
+		Text Input <br>
+		<input id="txbText1" type="text">Input</input>
+	</p>
+	<p>
+		TextArea <br>
+		<textarea id="txaTextArea1" name="txaTextArea1"></textarea>
+	</p>
+	<p>
+		Selects: <br>
+		<label for="files">Select a file</label>
+	    <select id="sltSelect1" name="sltSelect1">
+	      <optgroup label="Scripts">
+	        <option value="jquery">jQuery.js</option>
+	        <option value="jqueryui">ui.jQuery.js</option>
+	      </optgroup>
+	      <optgroup label="Other files">
+	        <option value="somefile">Some unknown file</option>
+	        <option value="someotherfile">Some other file with a very long option text</option>
+	      </optgroup>
+	    </select>
+	</p>
+
+	<div>
+		<form id="fForm1">
+			<div id="fTitle"><h2>Sign up</h2></div>
+			<div class="field">
+				<label>Name</label>
+				<input id="ftxtWidgetName" type="text" name="ftxtWidgetName" />
+			</div>
+			<div class="field">
+				<label>Email</label>
+				<input id="ftxtWidgetEmail" type="text" name="ftxtWidgetEmail" />		
+			</div>		
+			<div class="field">
+				<label>Company</label>
+				<input id="ftxtWidgetCompany" type="text" name="ftxtWidgetCompany" />
+			</div>
+			<div class="field">
+				<label>VeryLongName</label>
+				<input id="ftxtVeryLongName" type="text" name="ftxtVeryLongName" />		
+			</div>
+			<div id='selectField' class="field">
+				<label>Select</label>
+				<select id="fsSelect" type="text" name="fsSelect"/>		
+			</div>
+			
+
+			<input id="btnSubmit" type="submit" value="Submit" />
+		</form>
+	</div>
+	
+
+<p>
+  <h3>Request Object:</h3>
+  <ul>
+    <li><strong>headers["HTTP_CT_REMOTE_USER"]:</strong> <%= @request.headers["HTTP_CT_REMOTE_USER"]%></li>
+  	<li><strong>headers["HTTP_REMOTE_USER"]:</strong> <%= @request.headers["HTTP_REMOTE_USER"]%></li>
+  	<li><strong>headers["HTTP_USER_AGENT"]:</strong> <%= @request.headers["HTTP_USER_AGENT"]%></li>
+  	<li><strong>headers["HTTP_OMHFACILITYNUM"]:</strong> <%= @request.headers["HTTP_OMHFACILITYNUM"]%></li>
+  	<li><strong>headers["HTTP_CTFN"]:</strong> <%= @request.headers["HTTP_CTFN"]%></li>
+  	<li><strong>headers["HTTP_INITIALS"]:</strong> <%= @request.headers["HTTP_INITIALS"]%></li>
+  	<li><strong>headers["HTTP_CTLN"]:</strong> <%= @request.headers["HTTP_CTLN"]%></li>
+  	<li><strong>headers["HTTP_CTEMAIL"]:</strong> <%= @request.headers["HTTP_CTEMAIL"]%></li>
+
+  	<% @request.headers.each do |key, value| %>
+  		<li>Key: <%= key %> Value: <%= value %></li>
+  	<% end %>
+  	<br />
+  	<li><strong>host:</strong> <%= @request.host%></li>
+  	<li><strong>domain(n=2):</strong> <%= @request.domain(n=2) %></li>
+  	<li><strong>format:</strong> <%= @request.format %></li>
+  	<li><strong>method:</strong> <%= @request.method %></li>
+  	<li><strong>headers hash:</strong> <%= @request.headers %></li>
+  	<li><strong>port:</strong> <%= @request.port %></li>
+  	<li><strong>protocol:</strong> <%= @request.protocol %></li>
+  	<li><strong>query_string:</strong> <%= @request.query_string %></li>
+  	<li><strong>remote_ip:</strong> <%= @request.remote_ip %></li>
+  	<li><strong>url:</strong> <%= @request.url %></li>
+  </ul>
+</p>
+
+<p>
+  <h3>Response Object:</h3>
+  <ul>
+  	<li><strong>body:</strong>  <%= @response.body%></li>
+  	<li><strong>status:</strong>  <%= @response.status%></li>
+  	<li><strong>location:</strong>  <%= @response.location%></li>
+  	<li><strong>content_type:</strong>  <%= @response.content_type%></li>
+  	<li><strong>charset:</strong>  <%= @response.charset%></li>
+  	<li><strong>Headers hash:</strong>  <%= @response.headers%></li>
+  	<% @response.headers.each do |key, value| %>
+  		<li>Key: <%= key %> Value: <%= value %></li>
+  	<% end %>
+  </ul>
+ 
+</p>
+	
+
+	
+</div>
+
+
+
+
+
+        
+
+

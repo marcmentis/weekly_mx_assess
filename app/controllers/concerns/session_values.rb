@@ -1,65 +1,54 @@
 module SessionValues
 
-	def check_session
-		if session[:authen].blank?
-			create_session
+	def authorized_and_confirmed
+		if session[:confirmed] != 'authen_and_in_db'
+			if Rails.env == 'development' || Rails.env == 'test'
+				check_rsa_authorization_dev
+				# puts "NOT AUTHORIZED AND CONFIRMED YET"
+			elsif Rails.env == 'production'
+				check_rsa_authorization_prod
+			end
 		end
+		# puts "AUTHORIZED AND CONFIRMED"
 	end
 
 	private
-		def create_session
-
-			# Get 'request' and 'response' objects from Authentication system
-		    @request = request
-		    @response = response
-		    
-		    # Raise a NoMethodError if user not in Users database
-		    # ? Differentiate between 'development' and 'production' for how this is done
-		    if @request.headers["HTTP_REMOTE_USER"].blank?
-			      # Artificially set session
-			      begin
-			        session[:authen] = 'pgmdmjm'
-			        @user = User.where('authen = ?', session[:authen]).first
-			        session[:facility] = @user.facility
-			        session[:email] = @user.email
-			        session[:firstname] = @user.firstname
-			        session[:lastname] = @user.lastname
-			        session[:firstinitial] = @user.firstinitial
-			        session[:middleinitial] = @user.middleinitial
-			        session[:name] = ''+@user.firstinitial+' '+@user.middleinitial+' '+@user.lastname+''
-			        session[:role] = @user.role
-
-			        # @for_select = ForSelect.where('value = ?', session[:facility]).first
-			        # session[:facilityname] = @for_select.text
-			      rescue NoMethodError
-			        render file: "#{Rails.root}/public/user_error", layout: false
-			      end
-		      
-		    else
-				begin
-				session[:authen] = @request.headers["HTTP_REMOTE_USER"]
-				@user = User.where('authen = ?', session[:authen]).first
-				# session[:facility] = @request.headers["HTTP_OMHFACILITYNUM"]
-				# session[:email] = @request.headers["HTTP_CTEMAIL"]
-				# session[:firstname] = @request.headers["HTTP_CTFN"]
-				# session[:lastname] = @request.headers["HTTP_CTLN"]
-				# session[:firstinitial] = @request.headers["HTTP_CTFN"]
-				# session[:middleinitial] = @request.headers["HTTP_INITIALS"]
-				session[:facility] = @user.facility
-				session[:email] = @user.email
-				session[:firstname] = @user.firstname
-				session[:lastname] = @user.lastname
-				session[:firstinitial] = @user.firstinitial
-				session[:middleinitial] = @user.middleinitial
-				session[:name] = ''+@user.firstinitial+' '+@user.middleinitial+' '+@user.lastname+''
-				session[:role] = @user.role
-
-				@for_select = ForSelect.where('value = ?', session[:facility]).first
-				session[:facilityname] = @for_select.text
-				rescue NoMethodError
-				    render file: "#{Rails.root}/public/user_error", layout: false
-				end
-		 	end
+		def check_rsa_authorization_dev
+			session[:authen] = 'pgmdmjm'
+			this_user = current_user
+			if this_user.blank?
+				@error = 'User has no privileges in this application'
+				render file: "#{Rails.root}/public/user_error", layout: false		
+			else
+				session[:confirmed] = 'authen_and_in_db'
+				session[:facility] = this_user.facility
+				session[:admin3] = this_user.has_role? :admin3
+				session[:user_name] = ''+this_user.lastname+' '+this_user.firstinitial+''
+			end
+				
 		end
+
+		def check_rsa_authorization_prod
+			if rfc_authorized? 
+				session[:authen] = request.headers["HTTP_REMOTE_USER"]				
+				this_user = current_user
+				if this_user.blank?
+					@error = 'User has no privileges in this application'
+					render file: "#{Rails.root}/public/user_error", layout: false		
+				else				
+					session[:confirmed] = 'authen_and_in_db'
+					session[:facility] = this_user.facility
+					session[:admin3] = this_user.has_role? :admin3
+					session[:user_name] = ''+this_user.lastname+' '+this_user.firstinitial+''
+				end			
+			else
+				@error = 'User has not passed RSA authentication'
+				render file: "#{Rails.root}/public/user_error", layout: false
+			end		
+		end
+
+		def rfc_authorized?
+			request.headers["HTTP_REMOTE_USER"].blank? ? false : true		
+	  	end
 	
 end

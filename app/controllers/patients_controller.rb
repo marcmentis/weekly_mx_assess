@@ -1,53 +1,34 @@
 class PatientsController < ApplicationController
-  include JqgridHelper
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
+  after_action :create_phi, only: [:create]
+  after_action :show_phi, only: [:complex_search, :show]
+  after_action :update_phi, only: [:update]
+  after_action :destroy_phi, only: [:destroy]
+
 
   # GET /patients
   # GET /patients.json
   def index
-    @patients = Patient.all
-    if params[:page] != nil
-      total_query_count = Patient.all.count     
-      # Run query and extract just those rows needed
-      extract = Patient.order("#{params[:sidx]} #{params[:sord]}")
-                        .limit(params[:rows].to_i)
-                        .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      # Create jsGrid object from 'extract' data
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
-    end
+  #   puts "IN INDEX ACTION"
+  #   params = {facility: '-1', site: '-1', firstname: '', lastname: '', identifier: ''}
+  #   patient = Patient.new
+  #   @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
 
-    respond_to do |format|
-      format.html
-      format.json {render json: @jsGrid_obj }
-    end
+  #   respond_to do |format|
+  #     format.html
+  #     format.json {render json: @jqGrid_obj }
+  #   end
   end
 
   def complex_search
-    # ActiveRecord relations are lazy loaders and can be chained
-    # Therefore, sequental .where searches IF PARAM not zero will filter with an 'AND' relationship
-    # Database will not be hit (lazy loading) until data needed by app
-    conditions = Patient.all 
-    conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= ''
-    conditions = conditions.where("firstname = :firstname", {firstname: params[:firstname]}) if params[:firstname]!= ''
-    conditions = conditions.where("lastname = :lastname", {lastname: params[:lastname]}) if params[:lastname]!= ''
-    conditions = conditions.where("number = :number", {number: params[:number]}) if params[:number]!= ''
-    conditions = conditions.where("ward = :ward", {ward: params[:ward]}) if params[:ward]!= ''
 
-
-    # total_query = Patient.where("facility = :facility", {facility: params[:diagnosis]}
-                            # ).where("firstname = :firstname", {firstname: params[:first_name]});
-    total_query = conditions
-    total_query_count = total_query.count
-
-# Run query and extract just those rows needed
-      extract = conditions
-                    .order("#{params[:sidx]} #{params[:sord]}")
-                    .limit(params[:rows].to_i)
-                    .offset((params[:page].to_i - 1) * params[:rows].to_i)
-      @jsGrid_obj = create_jsGrid_obj(extract, params, total_query_count)
+    # Get instance of Patient so can run instance method 'get_jqGrid_obj'
+    patient = Patient.new
+    @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
+    
     respond_to do |format|
       format.html
-      format.json {render json: @jsGrid_obj }
+      format.json {render json: @jqGrid_obj }
     end
   end
 
@@ -76,7 +57,7 @@ class PatientsController < ApplicationController
         format.json { head :no_content}
       else
         format.html { render action: 'new' }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
+        format.json { render json: @patient.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -84,13 +65,14 @@ class PatientsController < ApplicationController
   # PATCH/PUT /patients/1
   # PATCH/PUT /patients/1.json
   def update
+    # byebug
     respond_to do |format|
       if @patient.update(patient_params)
         format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
+        format.json { render json: @patient.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -113,6 +95,21 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:firstname, :lastname, :number, :facility, :ward, :doa, :dob, :dod, :updated_by, :facility, :ward)
+      params.require(:patient).permit(:firstname, :lastname, :identifier, :facility, :site, :doa, :dob, :dod, :updated_by)
     end
+
+    def create_phi
+      accessauditlog_entry('I')
+    end
+    def show_phi
+      accessauditlog_entry('S')
+    end
+    def update_phi
+      accessauditlog_entry('U')
+    end
+    def destroy_phi
+
+      accessauditlog_entry('D')
+    end
+
 end

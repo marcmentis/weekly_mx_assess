@@ -1,0 +1,17 @@
+<%= form_for(@mx_assessment) do |f| %>
+  <% if @mx_assessment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mx_assessment.errors.count, "error") %> prohibited this mx_assessment from being saved:</h2>
+
+      <ul>
+      <% @mx_assessment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

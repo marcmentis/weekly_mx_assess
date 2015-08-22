@@ -1,6 +1,7 @@
 class ForSelectsController < ApplicationController
+
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
-  before_action :check_session
+  # before_action :check_session
   # after_action :verify_authorized
   # def pundit_user
   #   current_user
@@ -19,8 +20,47 @@ class ForSelectsController < ApplicationController
     #   flash[:notice] = 'no current user not known'
     # end
 
-    authorize ForSelect
-    @for_selects = ForSelect.all
+    # authorize ForSelect
+    # @for_selects = ForSelect.all
+    # if params[:page] != nil
+    #   total_query_count = ForSelect.all.count     
+    #   # Run query and extract just those rows needed
+    #   extract = ForSelect.order("#{params[:sidx]} #{params[:sord]}")
+    #                     .limit(params[:rows].to_i)
+    #                     .offset((params[:page].to_i - 1) * params[:rows].to_i)
+    #   # Create jqGrid object from 'extract' data
+    #   @jqGrid_obj = create_jqGrid_obj(extract, params, total_query_count)
+    # end
+
+    # respond_to do |format|
+    #   format.html
+    #   format.json {render json: @jqGrid_obj }
+    # end
+  end
+
+  def complex_search
+    for_select = ForSelect.new
+    @jqGrid_obj = for_select.get_jqGrid_obj(params, session[:admin3])
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @jqGrid_obj }
+    end
+  end
+
+  def options_search
+    # byebug
+    options = ForSelect.all
+    options = options.where("code = :code", {code: params[:code]}) if params[:code]!=''
+    options = options.where("facility = :facility", {facility: params[:facility]}) if params[:facility] != ''
+    # options = options.where("grouper = :grouper",{grouper: params[:grouper]}) if params[:grouper]!=''
+    options = options.order("option_order")
+
+    @options = options
+    respond_to do |format|
+      # format.html
+      format.json {render json: @options }
+    end
   end
 
   # GET /for_selects/1
@@ -45,7 +85,7 @@ class ForSelectsController < ApplicationController
     respond_to do |format|
       if @for_select.save
         format.html { redirect_to @for_select, notice: 'For select was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @for_select }
+        format.json { head :no_content}
       else
         format.html { render action: 'new' }
         format.json { render json: @for_select.errors, status: :unprocessable_entity }
@@ -56,6 +96,7 @@ class ForSelectsController < ApplicationController
   # PATCH/PUT /for_selects/1
   # PATCH/PUT /for_selects/1.json
   def update
+    # byebug
     respond_to do |format|
       if @for_select.update(for_select_params)
         format.html { redirect_to @for_select, notice: 'For select was successfully updated.' }
