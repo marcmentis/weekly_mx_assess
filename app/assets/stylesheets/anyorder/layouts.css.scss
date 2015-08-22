@@ -140,6 +140,10 @@ $background_light_gray: #F5F5F5;
 	text-align: center;
 }
 
+.align_right {
+	text-align: right;
+}
+
 .rt_margin_10 {
 	margin-right: 10px
 }
@@ -279,10 +283,21 @@ $background_light_gray: #F5F5F5;
 	}
 	& .success_message {
 		font-size: 12px;
-		color: $r_alert;
+		color: #FFFFFF;
 		text-align: center;
-		border: 1px solid $r_alert;;
+		border: 2px solid $r_alert;;
 		padding: 2px;
+		margin-top: 20px;
+		background-color: #60DC43;
+	}
+	& .error_message {
+		font-size: 12px;
+		color: #FFFFFF;
+		text-align: center;
+		border: 2px solid $r_alert;;
+		padding: 2px;
+		margin-top: 4px;
+		background-color: #DC5A5F;
 	}
   }
 
@@ -403,6 +418,15 @@ $pad: 10px;
 }
 .col-1-4 {
 	width: 25%;
+}
+.col-1-6 {
+	width: 16.66%;
+}
+.col-1-5 {
+	width: 20%;
+}
+.col-3-5 {
+	width: 60%;
 }
 .col-1-8 {
 	width: 12.5%;

@@ -1,4 +1,5 @@
 class MxAssessment < ActiveRecord::Base
+	include Jqgridconcern
 	belongs_to :patient
 
 	def self.get_pat_lists (params, facility)
@@ -54,4 +55,22 @@ class MxAssessment < ActiveRecord::Base
 	                  			.where.not(id: not_these_ids)
 	                  			.order(lastname: :asc)	
 		end
+
+	# Get jqGrid object for Mx Assessment Tracker
+	def get_mxaw_jqGrid_obj(params)
+		conditions = Patient.joins(:mx_assessments)
+							.select('mx_assessments.*',
+								:firstname, :lastname, :identifier, :site, :doa)
+		conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
+	    conditions = conditions.where("site = :site", {site: params[:site]}) if params[:site]!= '-1'
+	    conditions = conditions.where("danger_yn = :danger_yn", {danger_yn: params[:danger_yn]}) if params[:danger_yn]!= '-1'
+
+	 #    conditions = conditions.where("firstname = :firstname", {firstname: params[:firstname]}) if params[:firstname]!= ''
+	    # conditions = conditions.where("firstname LIKE ?", ''+params[:firstname]+'%') if params[:firstname]!= ''
+	    # conditions = conditions.where("lastname LIKE ?", ''+ params[:lastname]+'%') if params[:lastname]!= ''
+	    # conditions = conditions.where("identifier LIKE ?", ''+params[:identifier]+'%') if params[:identifier]!= ''
+	    
+		
+		return jqGrid_obj = create_jqGrid_obj(conditions, params)
+	end
 end

@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Hospital names/numbers
 ForSelect.find_or_initialize_by_value('0001').update_attributes(facility: '9999', code: 'facility', value: '0001', text: 'GBHC', option_order: 1, grouper: '')
 ForSelect.find_or_initialize_by_value('0002').update_attributes(facility: '9999', code: 'facility', value: '0002', text: 'Kingsboro', option_order: 2, grouper: '')
 ForSelect.find_or_initialize_by_value('0003').update_attributes(facility: '9999', code: 'facility', value: '0003', text: 'Buffalo', option_order: 3, grouper: '')
@@ -31,6 +33,10 @@ ForSelect.find_or_initialize_by_value('0044').update_attributes(facility: '9999'
 ForSelect.find_or_initialize_by_value('0045').update_attributes(facility: '9999', code: 'facility', value: '0045', text: 'MVPC', option_order: 24, grouper: '')
 ForSelect.find_or_initialize_by_value('0048').update_attributes(facility: '9999', code: 'facility', value: '0048', text: 'NYCCC', option_order: 25, grouper: '')
 ForSelect.find_or_initialize_by_value('9999').update_attributes(facility: '9999', code: 'facility', value: '9999', text: 'All', option_order: 26, grouper: '')
+
+# Selects for All Hosptials
+ForSelect.find_or_initialize_by_value('Y').update_attributes(facility: '9999', code: 'YesNo', value: 'Y', text: 'Yes', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('N').update_attributes(facility: '9999', code: 'YesNo', value: 'N', text: 'No', option_order: 2, grouper: '')
 
 # Pilgrim Ward Names
 ForSelect.find_or_initialize_by_value('81/101').update_attributes(facility: '0013', code: 'ward', value: '81/101', text: '81/101', option_order: 1, grouper: 'bld81')

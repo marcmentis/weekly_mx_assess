@@ -1,7 +1,7 @@
 <div id="divMxAssessPageWrapper">
 <div id="divMxAssessPageInnerWrapper" class="mx_assessment_index">
 
-<div id="divFacility" data-facility="<%= session[:facility] %>" ></div>
+<!-- <div id="divFacility" data-facility="<%#= session[:facility] %>" ></div> -->
 
 <div id="grid_WHOLE PAGE" class="grid">
 
@@ -40,7 +40,7 @@
             <input type="button" id="bt_MxA_TogNotes" value="tog"></input>
             </h3>
           </div>
-          <div>
+          <div class="spacer_vertical_small">
               <textarea id="txa_MxA_pastAssessments" name="txa_MxA_pastAssessments"></textarea>
           </div>
         </div>
@@ -57,65 +57,64 @@
         <span id="sp_MxA_days_in_hospital" class="text-14-alert"></span>
       </div>
 
-      <div id="div_MxA_dangerQuestion">
+      <div id="div_MxA_dangerQuestion" class="spacer_vertical_small">
         <span class="text-14-bold">
           Is Patient a danger to self/other, if in approved housing?
         </span>
-        <label>Yes<input type="radio" name="danger_yn" id="rd_MxA_danger_yes" value="Y" /></label>
-        <label>No<input type="radio" name="danger_yn" id="rd_MxA_danger_no" value="N" /></label>
+        <select name="danger_yn" id="slt_MxA_danger_yn"></select>
       </div>    
        
         <!--YES Still Dangerous--> 
-        <div id="div_MxA_dangerYes_drug">
+        <div id="div_MxA_dangerYes_drug" class="spacer_vertical_small">
           <span class="text-12-bold">
             (i)When was medication for Axis I/II Dx last changed?
           </span>        
           <select name="drugs_last_changed" id="slt_Mxa_drugsChanged"></select>
         </div>
-          <div id="div_MxA_dangerYes_drugYes">
-            <span class="text-12">
-              What Medication change was made for AxisI/II and WHY?
-            </span>
-            <input type="button" id ="bt_MxA_togDrugWhyChange" value="tog">
-            <input type="button" id ="bt_MxA_histDrugWhyChange" value="Hist">
-            <div>
-                <textarea id="txa_MxA_drugWhyChange"></textarea>
-            </div>
+        <div id="div_MxA_dangerYes_drugYes" class="spacer_vertical_small">
+          <span class="text-12">
+            What Medication change was made for AxisI/II and WHY?
+          </span>
+          <input type="button" id ="bt_MxA_togDrugWhyChange" value="tog">
+          <!-- <input type="button" id ="bt_MxA_histDrugWhyChange" value="Hist"> -->
+          <div class="spacer_vertical_small">
+              <textarea id="txa_MxA_drugWhyChange"></textarea>
           </div>
-        <div id="div_MxA_dangerYes_drugNo">
+        </div>
+        <div id="div_MxA_dangerYes_drugNo" class="spacer_vertical_small">
           <span class="text-12">
             Why No Change in Medication for AxisI or II disorder(s)?
           </span>
           <input type="button" id ="bt_MxA_togDrugNoChange" value="tog">
-          <input type="button" id ="bt_MxA_histDrugNoChange" value="Hist">
-          <div>
+          <!-- <input type="button" id ="bt_MxA_histDrugNoChange" value="Hist"> -->
+          <div class="spacer_vertical_small">
             <textarea id="txa_MxA_drugNoChange"></textarea>
           </div>
         </div>
 
-        <div id="div_MxA_dangerYes_group">
+        <div id="div_MxA_dangerYes_group" class="spacer_vertical_small">
           <span class="text-12-bold">
             (ii)When was group/indiv Tx for Axis I/II Dx last changed?
           </span>   
           <select name="psychsoc_last_changed" id="slt_Mxa_groupChanged" ></select>
         </div>
-        <div id="div_MxA_dangerYes_groupYes">
+        <div id="div_MxA_dangerYes_groupYes" class="spacer_vertical_small">
           <span class="text-12">
             What change was made in Group/Individual therapy for Axis1 or II disorder(s)?
           </span>
           <input type="button" id ="bt_MxA_togGroupChange" value="tog">
-          <input type="button" id ="bt_MxA_histGroupChange" value="Hist">
-          <div>
+          <!-- <input type="button" id ="bt_MxA_histGroupChange" value="Hist"> -->
+          <div class="spacer_vertical_small">
             <textarea id="txa_MxA_groupWhyChange"></textarea>
           </div>        
         </div>
-        <div id="div_MxA_dangerYes_groupNo">
+        <div id="div_MxA_dangerYes_groupNo" class="spacer_vertical_small">
           <span class="text-12">
             Why No Change in Group/Individual therapy for Axis1 or II disorder(s)?
           </span>
           <input type="button" id ="bt_MxA_togGroupNoChange" value="tog">
-          <input type="button" id ="bt_MxA_histGroupNoChange" value="Hist">
-          <div>
+          <!-- <input type="button" id ="bt_MxA_histGroupNoChange" value="Hist"> -->
+          <div class="spacer_vertical_small">
             <textarea id="txa_MxA_groupNoChange"></textarea>
           </div>        
         </div>
@@ -123,38 +122,41 @@
 
         <!--NO Not Dangerous-->
         <div id="div_MxA_dangerNo_date"> 
-          <div>
+          <div class="spacer_vertical_small">
             <span class="text-12">
               Has date been set for Pre-Conference Meeting?
             </span>
-           <label>Yes<input type="radio" name="pre_date_yesno" id="rd_MxA_preDate_yes" value="Y" /></label>
-           <label>No<input type="radio" name="pre_date_yesno" id="rd_MxA_preDate_no" value="N" /></label>
+            <select id="slt_MxA_pre_date_yesno" name="pre_date_yesno"></select>
 
           </div>
           <!--YES Pre Date Set--> 
-          <div id="div_MxA_dangerNo_dateYes">
+          <div id="div_MxA_dangerNo_dateYes" class="spacer_vertical_small">
               <label>Date: <input type="text"  id="dt_MxA_preMeeting" name="pre_date" style="width:90px"/></label>
           </div>
            <!--No Pre Date Not Set--> 
-          <div id="div_MxA_dangerNo_dateNo">
+          <div id="div_MxA_dangerNo_dateNo" class="spacer_vertical_small">
             <span class="text-12">
               Why has Pre-date not been set?
             </span>
             <input type="button" id ="bt_MxA_togPreDateNo" value="tog">
-            <input type="button" id ="bt_MxA_histPreDateNo" value="Hist">
-              <div class="LtFloatOnly_g">
+            <!-- <input type="button" id ="bt_MxA_histPreDateNo" value="Hist"> -->
+              <div class="spacer_vertical_small">
                 <textarea id="txa_MxA_PreDateNo"></textarea>
               </div>
           </div>                  
         </div> 
-      <div id="div_MxA_saveButtons">
+      <div id="div_MxA_saveButtons" class="spacer_vertical_small">
         <input id="bt_MxA_save" type="button" value="Save">
+        <input id="bt_MxA_update" type="button" value="Update">
         <input id="bt_MxA_back" type="button" value="Back">
+        <input id="bt_MxA_delete" type="button" value="Delete">
       </div>
       <div class="success_message" id="div_MxA_save_message"></div>
     </form> <!-- class="form_container" -->
   </div> <!-- <div id="grid_RightContainer" class="col-1-2"> -->
 
+<!-- Hidden inputs containing values -->
+<input id="hide_mx_assessment_id" class="hidden"></input>
 
 </div>  <!-- <div id="GRID-WHOLE PAGE" class="grid"> -->
 
