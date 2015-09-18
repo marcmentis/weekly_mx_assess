@@ -1,25 +1,27 @@
 class PatientsController < ApplicationController
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
   after_action :create_phi, only: [:create]
-  after_action :show_phi, only: [:complex_search, :show]
+  after_action :show_phi, only: [:complex_search, :show, :patients_site_search]
   after_action :update_phi, only: [:update]
   after_action :destroy_phi, only: [:destroy]
+  
 
 
   # GET /patients
   # GET /patients.json
   def index
-  #   puts "IN INDEX ACTION"
-  #   params = {facility: '-1', site: '-1', firstname: '', lastname: '', identifier: ''}
-  #   patient = Patient.new
-  #   @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
+    # puts "IN INDEX ACTION"
+    # params = {facility: '-1', site: '-1', firstname: '', lastname: '', identifier: ''}
+    # patient = Patient.new
+    # @jqGrid_obj = patient.get_jqGrid_obj(params, session[:admin3])
 
-  #   respond_to do |format|
-  #     format.html
-  #     format.json {render json: @jqGrid_obj }
-  #   end
+    # respond_to do |format|
+    #   format.html
+    #   format.json {render json: @jqGrid_obj }
+    # end
   end
 
+  # GET /patients_search
   def complex_search
 
     # Get instance of Patient so can run instance method 'get_jqGrid_obj'
@@ -87,6 +89,21 @@ class PatientsController < ApplicationController
     end
   end
 
+
+  # GET /patients_site_search.json
+  def patients_site_search
+
+    # Get instance of Patient so can run instance method 'get_jqGrid_obj'
+    @patients = Patient.new
+    @patients = Patient.select(:id, :firstname, :lastname)
+                       .where("site = :site",{site: params[:site]})
+                       .order(lastname: :asc)
+    respond_to do |format|
+      # format.html
+      format.json {render json: @patients }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient
@@ -98,18 +115,19 @@ class PatientsController < ApplicationController
       params.require(:patient).permit(:firstname, :lastname, :identifier, :facility, :site, :doa, :dob, :dod, :updated_by)
     end
 
+    
     def create_phi
-      accessauditlog_entry('I')
+      accessauditlog_entry('I', 6387)
     end
     def show_phi
-      accessauditlog_entry('S')
+      accessauditlog_entry('S', 6387)
     end
     def update_phi
-      accessauditlog_entry('U')
+      accessauditlog_entry('U', 6387)
     end
     def destroy_phi
 
-      accessauditlog_entry('D')
+      accessauditlog_entry('D', 6387)
     end
 
 end

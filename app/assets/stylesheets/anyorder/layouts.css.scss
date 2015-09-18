@@ -161,6 +161,9 @@ $background_light_gray: #F5F5F5;
 .spacer_vertical_small{
 	margin-top: 0.25em;
 }
+.spacer_vertical_medium{
+	margin-top: 1em;
+}
 
 /* text */
 .moderate_increase {
@@ -171,6 +174,9 @@ $background_light_gray: #F5F5F5;
 }
 .hidden {
 	visibility: hidden;
+}
+.display_none {
+	display: none;
 }
 
 //GENERIC BASIC WIDGET SETUP - some Redmont theming
@@ -419,11 +425,17 @@ $pad: 10px;
 .col-1-4 {
 	width: 25%;
 }
+.col-3-4{
+	width: 75%;
+}
 .col-1-6 {
 	width: 16.66%;
 }
 .col-1-5 {
 	width: 20%;
+}
+.col-2-5 {
+	width: 40%;
 }
 .col-3-5 {
 	width: 60%;

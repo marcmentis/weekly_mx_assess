@@ -1,3 +1,20 @@
 // Place all the styles related to the patients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@media (min-width: 481px) and (max-width: 1064px) {
+	.patients_index .col-1-4 {
+		// background-color: #2e6e9e;
+		float: none;
+		// width:auto;
+		width: 250px;
+		padding: 0;
+		margin-top: 10px;
+	}
+	.patients_index .col-3-4 {
+		// background-color: #2e6e9e;
+		float: none;
+		width:auto;
+		padding: 0;
+	}			
+}	

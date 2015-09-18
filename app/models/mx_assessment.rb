@@ -25,8 +25,7 @@ class MxAssessment < ActiveRecord::Base
 	      chosen_date = ""
 	    end
 
-	    return {pat_all_done: all_done, pat_all_to_do: all_to_do, meeting_date: chosen_date}
-		
+	    return {pat_all_done: all_done, pat_all_to_do: all_to_do, meeting_date: chosen_date}	
 	end
 
 	# Get all the Patients who have weekly notes from a given ward and date
@@ -61,16 +60,55 @@ class MxAssessment < ActiveRecord::Base
 		conditions = Patient.joins(:mx_assessments)
 							.select('mx_assessments.*',
 								:firstname, :lastname, :identifier, :site, :doa)
-		conditions = conditions.where("facility = :facility", {facility: params[:facility]}) if params[:facility]!= '-1'
-	    conditions = conditions.where("site = :site", {site: params[:site]}) if params[:site]!= '-1'
-	    conditions = conditions.where("danger_yn = :danger_yn", {danger_yn: params[:danger_yn]}) if params[:danger_yn]!= '-1'
-
-	 #    conditions = conditions.where("firstname = :firstname", {firstname: params[:firstname]}) if params[:firstname]!= ''
-	    # conditions = conditions.where("firstname LIKE ?", ''+params[:firstname]+'%') if params[:firstname]!= ''
-	    # conditions = conditions.where("lastname LIKE ?", ''+ params[:lastname]+'%') if params[:lastname]!= ''
-	    # conditions = conditions.where("identifier LIKE ?", ''+params[:identifier]+'%') if params[:identifier]!= ''
-	    
-		
+		# User MUST CHOOSE one of the two allLastNote options
+		if params[:allLatestNote] == 'Latest'
+			# Make subquery (IN) and GROUP BY in a text string
+			conditions = conditions.where("meeting_date =(SELECT MAX(meeting_date) 
+		    												FROM mx_assessments m 
+		    												WHERE m.patient_id = mx_assessments.patient_id 
+		    												GROUP BY m.patient_id)")
+		elsif params[:allLatestNote] == 'All'
+			# Do no filtering - allow all notes to be selected
+		else
+			# Create an empty activeRecord object
+			conditions = conditions.where("1=2")
+		end 
+		conditions = conditions.where("facility = :facility", {facility: params[:facility]}) unless params[:facility] == '-1'
+	    conditions = conditions.where("site = :site", {site: params[:site]}) unless params[:site] == '-1'
+	    conditions = conditions.where("patient_id = :pid", {pid: params[:pid]}) unless params[:pid] == '-1'
+	    conditions = conditions.where("danger_yn = :danger_yn", {danger_yn: params[:danger_yn]}) unless params[:danger_yn] == '-1'
+	    conditions = conditions.where("drugs_last_changed = :drugs_last_changed", {drugs_last_changed: params[:drugs_last_changed]}) unless params[:drugs_last_changed] == '-1'
+	    conditions = conditions.where("psychsoc_last_changed = :psychsoc_last_changed", {psychsoc_last_changed: params[:psychsoc_last_changed]}) unless params[:psychsoc_last_changed] == '-1'
+	    conditions = conditions.where("pre_date_yesno = :pre_date_yesno", {pre_date_yesno: params[:pre_date_yesno]}) unless params[:pre_date_yesno] == '-1'
+	    conditions = conditions.where("meeting_date > :dma", {dma: params[:dma]}) unless params[:dma].blank?
+	    conditions = conditions.where("meeting_date < :dmb", {dmb: params[:dmb]}) unless params[:dmb].blank?
+	    conditions = conditions.where("doa > :dda", {dda: params[:dda]}) unless params[:dda].blank?
+	    conditions = conditions.where("doa < :ddb", {ddb: params[:ddb]}) unless params[:ddb].blank?
+	    conditions = conditions.where("pre_date > :dpa", {dpa: params[:dpa]}) unless params[:dpa].blank?
+	    conditions = conditions.where("pre_date < :dpb", {dpb: params[:dpb]}) unless params[:dpb].blank?
+	    # conditions = conditions.order("lastname ASC, meeting_date DESC")	
 		return jqGrid_obj = create_jqGrid_obj(conditions, params)
+	end
+
+	def get_mxaw_reasons_from_notes(params)
+		conditions = Patient.joins(:mx_assessments)
+						.select('mx_assessments.*',
+							:firstname, :lastname, :identifier, :site, :doa)
+		conditions = conditions.where("patient_id = :pid", {pid: params[:patient_id]})
+		case params[:reason]
+		when 'MedChange'
+			conditions = conditions.where("drugs_last_changed = :drugs_last_changed", {drugs_last_changed: '0-8Weeks'})
+		when 'MedNoChange'
+			conditions = conditions.where("drugs_last_changed = :drugs_last_changed", {drugs_last_changed: 'Gt8Weeks'})
+		when 'GroupChange'
+			conditions = conditions.where("psychsoc_last_changed = :psychsoc_last_changed", {psychsoc_last_changed: '0-3Months'})
+		when 'GroupNoChange'
+			conditions = conditions.where("psychsoc_last_changed = :psychsoc_last_changed", {psychsoc_last_changed: 'Gt3Months'})
+		when 'PreNoDate'
+			conditions = conditions.where("pre_date_yesno = :pre_date_yesno", {pre_date_yesno: 'N'})
+		else
+			conditions = conditions.where("1=2")
+		end	
+		conditions = conditions.order("meeting_date DESC")
 	end
 end

@@ -2,26 +2,63 @@
 <div id="divForSelectPageWrapper">
 <div id="divForSelectPageInnerWrapper">
 
-  <div id="divForSelectAsideRt">  
+<div class="grid">
+  
+  <div class="col-3-4">
+    <form id="fForSelectSearch">
+      <div id="ForSelectErrors"></div>     
+      <div id="ForSelectSearchTitle"><h2>Search Criteria</h2></div> 
+      <div class="field">
+        <label>Facility</label>
+        <select id="slt_for_selects_S_facility" name="slt_for_selects_S_facility"></select>
+      </div>     
+      <div class="field">
+        <label>Value</label>
+        <input id="ftx_for_selects_S_value" type="text" />             
+      </div> 
+      <div class="field"> 
+        <label>Grouper</label>      
+        <input id="ftx_for_selects_S_grouper" type="text" />        
+      </div>
+      <div class="field">
+        <label>Code</label>
+        <input id="ftx_for_selects_S_code" type="text" />                
+      </div>
+      <div class="field">
+        <label>Text</label>
+        <input id="ftx_for_selects_S_text" type="text" />          
+      </div>
+      <div class="field"> 
+        <label>Option order</label>
+        <input id="ftx_for_selects_S_option_order" type="text" />
+      </div>
+      <input id="b_for_selects_select" type="submit" value="Search" />  
+    </form>  <!-- id="fForSelectSearch" -->
+    <div id="divGrid_for_selects"></div>
+  </div>
+  
+
+
+  <div id="divForSelectAsideRt" class="col-1-4">  
     <div id="ForSelectAsideRtTitle"><h2>For Selects Data</h2></div>
     <div id="ForSelectAsideRtErrors"></div>  
     <form id="fForSelectAsideRt">
       <fieldset>
         <input id="id" type="hidden" name="id" />
         <div class="field"> 
-          <label for="facility" class="label">facility</label>      
+          <label for="facility" class="label">facility</label><span class="text-14-alert">*</span>      
           <select id="slt_for_select_Rt_facility" name="slt_for_select_Rt_facility"></select>          
         </div>
         <div class="field">
-          <label for="ftx_for_select_Rt_code" class="label">Code</label>
+          <label for="ftx_for_select_Rt_code" class="label">Code</label><span class="text-14-alert">*</span>
           <input id="ftx_for_select_Rt_code" name="ftx_for_select_Rt_code" type="text"/>
         </div>         
         <div class="field">
-          <label for="ftx_for_select_value" class="label">Value</label>
+          <label for="ftx_for_select_value" class="label">Value</label><span class="text-14-alert">*</span>
           <input id="ftx_for_select_Rt_value" name="ftx_for_select_Rt_value" type="text" />    
         </div>
         <div class="field">
-          <label for="ftx_for_select_text" class="label">Text</label>
+          <label for="ftx_for_select_text" class="label">Text</label><span class="text-14-alert">*</span>
           <input id="ftx_for_select_Rt_text" name="ftx_for_select_Rt_text" type="text" />    
         </div>
         <div class="field">
@@ -29,7 +66,7 @@
           <input id="ftx_for_select_Rt_grouper" name="ftx_for_select_Rt_grouper" type="text" />    
         </div>
         <div class="field">
-          <label for="ftx_for_select_option_order" class="label">Order</label>
+          <label for="ftx_for_select_option_order" class="label">Order</label><span class="text-14-alert">*</span>
           <input id="ftx_for_select_option_order" name="ftx_for_select_option_order" type="text" />    
         </div>
         <div>
@@ -40,41 +77,7 @@
     </form>  
   </div>  <!-- id="divForSelectAsideRt" -->
 
-  <form id="fForSelectSearch">
-    <div id="ForSelectErrors"></div>     
-    <div id="ForSelectSearchTitle"><h2>Search Criteria</h2></div> 
-    <div class="field">
-      <label>Facility</label>
-      <select id="slt_for_selects_S_facility" name="slt_for_selects_S_facility"></select>
-    </div>
-    <div class="field">
-      <label>Value</label>
-      <input id="ftx_for_selects_S_value" type="text" />             
-    </div>
-    <div class="field"> 
-      <label>Grouper</label>      
-      <input id="ftx_for_selects_S_grouper" type="text" />        
-    </div>
-    <div class="field">
-      <label>Code</label>
-      <input id="ftx_for_selects_S_code" type="text" />                
-    </div>
-    <div class="field">
-      <label>Text</label>
-      <input id="ftx_for_selects_S_text" type="text" />          
-    </div>
-    <div class="field"> 
-      <label>Option order</label>
-      <input id="ftx_for_selects_S_option_order" type="text" />
-    </div>
-    <input id="b_for_selects_select" type="submit" value="Search" />  
-  </form>  <!-- id="fForSelectSearch" -->
-  <div id="divGrid_for_selects"></div>
-
-  <section id="divBelow">
-    BELOW
-  </section>
-  
+</div>  <!-- class="grid" -->  
 </div> <!-- id="divForSelectPageInnerWrapper" -->
 </div> <!-- id="divForSelectPageWrapper" -->
 

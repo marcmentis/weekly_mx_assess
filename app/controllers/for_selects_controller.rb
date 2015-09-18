@@ -2,7 +2,8 @@ class ForSelectsController < ApplicationController
 
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
   # before_action :check_session
-  # after_action :verify_authorized
+  # Pundit - make sure all actions have an 'authorize' helper
+  # after_action :verify_authorized, except: [:index, :options_search]
   # def pundit_user
   #   current_user
   # end
@@ -31,23 +32,26 @@ class ForSelectsController < ApplicationController
     #   # Create jqGrid object from 'extract' data
     #   @jqGrid_obj = create_jqGrid_obj(extract, params, total_query_count)
     # end
-
+    
     # respond_to do |format|
     #   format.html
     #   format.json {render json: @jqGrid_obj }
     # end
   end
 
+  # GET /for_selects_search(.:format) 
   def complex_search
     for_select = ForSelect.new
     @jqGrid_obj = for_select.get_jqGrid_obj(params, session[:admin3])
 
+    authorize ForSelect
     respond_to do |format|
       format.html
       format.json {render json: @jqGrid_obj }
     end
   end
 
+  #GET /for_selects_options_search(.:format)
   def options_search
     # byebug
     options = ForSelect.all
@@ -122,6 +126,8 @@ class ForSelectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_for_select
       @for_select = ForSelect.find(params[:id])
+      # For PUNDIT will authorize all the actions that call 'set_for_select'
+      # authorize @for_select
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

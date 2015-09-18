@@ -7,8 +7,8 @@ module PunditHelper
 	extend ActiveSupport::Concern
 
 	included do
-		include Pundit
-		rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+		include Pundit  #Makes Pundit available to every controller (get 'authorize helper method')
+		rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized  # Can define user-friendly display when can't see page
 	end
 
 	private

@@ -1,43 +1,12 @@
 
 <div id="divPatientPageWrapper">
-<div id="divPatientPageInnerWrapper">
+<div id="divPatientPageInnerWrapper" class="patients_index">
 
-  <div id="divPatientAsideRt">
-    <div id="PatientAsideRtTitle"><h2>Patient Data</h2></div>
-    <div id="PatientAsideRtErrors"></div>       
-    <form id="fPatientAsideRt">
-      <fieldset>
-        <input id="id" type="hidden" name="id" />
-        <div class="field">
-          <label for="firstname" class="label">first_name</label>
-          <input id="firstname" name="firstname" type="text"/>
-        </div>         
-        <div class="field">
-          <label for="lastname" class="label">last_name</label>
-          <input id="lastname" name="lastname" type="text" />    
-        </div>
-        <div class="field">
-          <label for="number" class="label">number</label>
-          <input id="number" name="number" type="text" />            
-        </div>
-        <div class="field"> 
-          <label for="facility" class="label">facility</label>      
-          <input id="facility" name="facility" type="text" />          
-        </div>
-        <div class="field">   
-          <label for="ward" class="label">ward</label>    
-          <input id="ward" name="ward" type="text" />          
-        </div>
-        
-        <div>
-          <input id="bPatientSubmit" type="submit" value="x">
-          <input id="bPatientBack" type="button" value="Back">
-        </div>
-      </fieldset>         
-    </form>
-  </div>
-  <!-- <div> -->
-    <form id="fPatientSearch">
+<div class="grid">
+  
+  <div class="col-3-4">
+    <form id="fPatientSearch" >
+      <input id="Pat_ID" type="text"></input>
       <div id="PatientSearchTitle"><h2>Search Criteria</h2></div>
       <div class="field">
         <label>first_name</label>
@@ -63,18 +32,59 @@
       <input id="btnSubmit" type="submit" value="Search" />  
     </form>
     <div id="divGrid"></div>
-  <!-- </div> -->
+  </div>
 
+  
+  <div id="divPatientAsideRt" class="col-1-4">
+    <div id="PatientAsideRtTitle"><h2>Patient Data</h2></div>
+    <div id="PatientAsideRtErrors"></div>       
+    <form id="fPatientAsideRt">
+      <fieldset>
+        <input id="id" type="hidden" name="id" />
+        <div class="field">
+          <label for="txt_Pat_firstname" class="label">first_name</label><span class="text-14-alert">*</span>
+          <input id="txt_Pat_firstname" name="firstname" type="text"/>
+        </div>         
+        <div class="field">
+          <label for="txt_Pat_lastname" class="label">last_name</label><span class="text-14-alert">*</span>
+          <input id="txt_Pat_lastname" name="lastname" type="text" />    
+        </div>
+        <div class="field">
+          <label for="txt_Pat_number" class="label">number</label><span class="text-14-alert">*</span>
+          <input id="txt_Pat_number" name="identifier" type="text" />            
+        </div>
+        <div class="field"> 
+          <label for="slt_F_facility" class="label">facility</label><span class="text-14-alert">*</span>    
+          <select id="slt_F_facility" name="facility"></select> 
+          <!-- <input id="facility" name="facility" type="text" />           -->
+        </div>
+        <div class="field">   
+          <label for="slt_F_ward" class="label">ward</label><span class="text-14-alert">*</span>
+          <select id="slt_F_ward" name="site"></select>        
+        </div>
+        <div class="field">
+          <label for="dt_Pat_DOA" class="label">DOA</label><span class="text-14-alert">*</span>
+          <input type="text" id="dt_Pat_DOA" name="doa">
+        </div>
+        <div class="field">
+          <label for="dt_Pat_DOB" class="label">DOB</label>
+          <input type="text" id="dt_Pat_DOB" name="dob">
+        </div>
+        <div class="field">
+          <label for="dt_Pat_DOD" class="label">DOD</label>
+          <input type="text" id="dt_Pat_DOD" name="dod">
+        </div>
 
+        
+        <div>
+          <input id="bPatientSubmit" type="submit" value="x">
+          <input id="bPatientBack" type="button" value="Back">
+        </div>
+      </fieldset>         
+    </form>
+  </div>
 
-
-
-
-
-  <section id="divBelow">
-    BELOW
-  </section>
-
+</div>  <!-- <div class="grid"> -->
 </div>  <!-- id="divPatientPageInnerWrapper" -->
 </div>  <!-- id="divPatientPageWrapper" -->
 

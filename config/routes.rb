@@ -9,6 +9,7 @@ Rollify::Application.routes.draw do
   get "widgets" => 'widgets#index'
 
   get '/patients_search' => 'patients#complex_search', as: :complex_search_patients
+  get '/patients_site_search' => 'patients#patients_site_search', as: :patients_site_search
   get '/for_selects_options_search' => 'for_selects#options_search', as: :options_search
   get '/for_selects_search' => 'for_selects#complex_search', as: :complex_search_for_selects
   get '/users_search' => 'users#complex_search', as: :complex_search_users
@@ -23,6 +24,7 @@ Rollify::Application.routes.draw do
   get '/mxa_pat_data/' => 'mx_assessments#get_pat_data', as: :mxa_pat_data
 
   get '/mxa_tracker_search/' => 'mxa_tracker#complex_search', as: :mxa_tracker_complex_search
+  get '/mxa_tracker_get_reasons/:id' => 'mxa_tracker#get_reasons', as: :get_reasons
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

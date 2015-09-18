@@ -46,6 +46,51 @@ function ajax_error1 (header, msg, divname, msec) {
             }
      };
 
+// Validate Elements when using .form_container
+  //Will show message in div below element
+  //Will remove error div on next submit if corrected
+  //'validation_array' is an array of arrays
+    // contains [<element name>, <element value>, <message>]
+  //Usage:
+        // validation_array = [
+        //   ['txt_Pat_firstname','','Please enter First Name'],
+        //   ['txt_Pat_lastname','','Please enter Last Name'],
+        //   ['txt_Pat_number','','Please enter Number'],
+        //   ['slt_F_facility','-1','Please choose Facility'],
+        //   ['slt_F_ward','-1','Please choose Ward'],
+        //   ['dt_Pat_DOA','','Please choose DOA']
+        // ]
+
+        // //Loop through array and remove error messages if corrected       
+        // remove_error_divs_if_corrected(validation_array)
+        // //Loop through array and show error message if '', '-1' etc.
+        // exit = validate_elements(validation_array)
+        // if (exit) {return true};
+
+  function validate_elements (v) {
+    for (var i = 0; i < v.length; i++) {
+      if ($('#'+v[i][0]+'').val() == ''+v[i][1]+'') {
+        $('#'+v[i][0]+'')
+          .after('<div class="error_message">'+v[i][2]+'</div>')
+          .focus();
+          return true;
+        };
+    };
+  };
+  
+  function remove_error_divs_if_corrected(arr) {
+    length = arr.length
+    for (var i = 0; i < arr.length; i++) { 
+      input = $('#'+arr[i][0]+'').val();
+      if (input.length > 0 && input != '-1') {
+        $('#'+arr[i][0]+'').nextAll('.error_message').remove();
+      };
+    };
+  };
+
+  
+
+
 //********************************************************
 // TIME LIBRARY
     function getCalendarDate()

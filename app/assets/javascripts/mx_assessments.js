@@ -15,7 +15,7 @@ if ($('body.mx_assessments').length) {
 
 
 		//textareas
-		var width1 = '33em'
+		// var width1 = '33em'
 		var heightS1 = '90';
 		var heightL1 = '180';
 		var heightEL1 = '360';
@@ -382,30 +382,30 @@ if ($('body.mx_assessments').length) {
 		});
 
 		//Toggle handlers
-		$('#bt_MxA_TogNotes').click(function(){
-			element = $('#txa_MxA_pastAssessments');
-			tripleToggle(element, heightS1, heightL1, heightEL1)
-		});
-		$('#bt_MxA_togDrugWhyChange').click(function(){
-			element = $('#txa_MxA_drugWhyChange');
-			tripleToggle(element, heightS1, heightL1, heightEL1)
-		});
-		$('#bt_MxA_togDrugNoChange').click(function(){
-			element = $('#txa_MxA_drugNoChange');
-			tripleToggle(element, heightS1, heightL1, heightEL1)
-		});
-		$('#bt_MxA_togGroupChange').click(function(){
-			element = $('#txa_MxA_groupWhyChange');
-			tripleToggle(element, heightS1, heightL1, heightEL1)
-		});
-		$('#bt_MxA_togGroupNoChange').click(function(){
-			element = $('#txa_MxA_groupNoChange');
-			tripleToggle(element, heightS1, heightL1, heightEL1)
-		});
-		$('#bt_MxA_togPreDateNo').click(function(){
-			element = $('#txa_MxA_PreDateNo');
-			tripleToggle(element, heightS1, heightL1, heightEL1)
-		});
+			$('#bt_MxA_TogNotes').click(function(){
+				element = $('#txa_MxA_pastAssessments');
+				tripleToggle(element, heightS1, heightL1, heightEL1)
+			});
+			$('#bt_MxA_togDrugWhyChange').click(function(){
+				element = $('#txa_MxA_drugWhyChange');
+				tripleToggle(element, heightS1, heightL1, heightEL1)
+			});
+			$('#bt_MxA_togDrugNoChange').click(function(){
+				element = $('#txa_MxA_drugNoChange');
+				tripleToggle(element, heightS1, heightL1, heightEL1)
+			});
+			$('#bt_MxA_togGroupChange').click(function(){
+				element = $('#txa_MxA_groupWhyChange');
+				tripleToggle(element, heightS1, heightL1, heightEL1)
+			});
+			$('#bt_MxA_togGroupNoChange').click(function(){
+				element = $('#txa_MxA_groupNoChange');
+				tripleToggle(element, heightS1, heightL1, heightEL1)
+			});
+			$('#bt_MxA_togPreDateNo').click(function(){
+				element = $('#txa_MxA_PreDateNo');
+				tripleToggle(element, heightS1, heightL1, heightEL1)
+			});
 
 	//TEXTAREA HANDLERS
 		// $('txa_MxA_drugWhyChange, #txa_MxA_drugNoChange, #txa_MxA_groupWhyChange, #txa_MxA_groupNoChange, txa_MxA_PreDateNo')

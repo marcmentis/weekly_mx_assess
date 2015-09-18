@@ -6,6 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# TO DO  - STARTUP POPULATION OF USERS DATABASE
+# User make sure pgmdmjm in database
+User.find_or_initialize_by_authen('pgmdmjm').update_attributes(firstname: 'Marc', lastname: 'Mentis', authen: 'pgmdmjm', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
+User.find_or_initialize_by_authen('pgmdjs').update_attributes(firstname: 'Joe', lastname: 'Soap', authen: 'pgmdjs', facility: '0013', email: 'joe.soap@omh.ny.gov', firstinitial: 'J', middleinitial: 'L')
+User.find_or_initialize_by_authen('scmdmb').update_attributes(firstname: 'Mary', lastname: 'Board', authen: 'scmdmb', facility: '0025', email: 'mary.board@omh.ny.gov', firstinitial: 'M', middleinitial: 'R')
+User.find_or_initialize_by_authen('scmdtg').update_attributes(firstname: 'Tom', lastname: 'Gillins', authen: 'scmdtg', facility: '0025', email: 'Tom.Gillins@omh.ny.gov', firstinitial: 'T', middleinitial: 'S')
+
+
+# ********************************
+# FOR ALL HOSPITALS
 # Hospital names/numbers
 ForSelect.find_or_initialize_by_value('0001').update_attributes(facility: '9999', code: 'facility', value: '0001', text: 'GBHC', option_order: 1, grouper: '')
 ForSelect.find_or_initialize_by_value('0002').update_attributes(facility: '9999', code: 'facility', value: '0002', text: 'Kingsboro', option_order: 2, grouper: '')
@@ -34,10 +44,44 @@ ForSelect.find_or_initialize_by_value('0045').update_attributes(facility: '9999'
 ForSelect.find_or_initialize_by_value('0048').update_attributes(facility: '9999', code: 'facility', value: '0048', text: 'NYCCC', option_order: 25, grouper: '')
 ForSelect.find_or_initialize_by_value('9999').update_attributes(facility: '9999', code: 'facility', value: '9999', text: 'All', option_order: 26, grouper: '')
 
-# Selects for All Hosptials
+# Roles
+ForSelect.find_or_initialize_by_value('admin3').update_attributes(facility: '9999', code: 'Roles', value: 'admin3', text: 'admin3', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('admin2').update_attributes(facility: '9999', code: 'Roles', value: 'admin2', text: 'admin2', option_order: 2, grouper: '')
+ForSelect.find_or_initialize_by_value('admin1').update_attributes(facility: '9999', code: 'Roles', value: 'admin1', text: 'admin1', option_order: 3, grouper: '')
+ForSelect.find_or_initialize_by_value('pat_crud').update_attributes(facility: '9999', code: 'Roles', value: 'pat_crud', text: 'pat_crud', option_order: 4, grouper: '')
+ForSelect.find_or_initialize_by_value('pat_cru').update_attributes(facility: '9999', code: 'Roles', value: 'pat_cru', text: 'pat_cru', option_order: 5, grouper: '')
+ForSelect.find_or_initialize_by_value('pat_r').update_attributes(facility: '9999', code: 'Roles', value: 'pat_r', text: 'pat_r', option_order: 6, grouper: '')
+ForSelect.find_or_initialize_by_value('trackers_r').update_attributes(facility: '9999', code: 'Roles', value: 'trackers_r', text: 'trackers_r', option_order: 7, grouper: '')
+ForSelect.find_or_initialize_by_value('bps_crud').update_attributes(facility: '9999', code: 'Roles', value: 'bps_crud', text: 'bps_crud', option_order: 8, grouper: '')
+ForSelect.find_or_initialize_by_value('bps_cru').update_attributes(facility: '9999', code: 'Roles', value: 'bps_cru', text: 'bps_cru', option_order: 9, grouper: '')
+ForSelect.find_or_initialize_by_value('r_and_d').update_attributes(facility: '9999', code: 'Roles', value: 'r_and_d', text: 'r_and_d', option_order: 10, grouper: '')
+
+
+
+#YesNo
 ForSelect.find_or_initialize_by_value('Y').update_attributes(facility: '9999', code: 'YesNo', value: 'Y', text: 'Yes', option_order: 1, grouper: '')
 ForSelect.find_or_initialize_by_value('N').update_attributes(facility: '9999', code: 'YesNo', value: 'N', text: 'No', option_order: 2, grouper: '')
 
+#AllLatest
+ForSelect.find_or_initialize_by_value('All').update_attributes(facility: '9999', code: 'AllLatest', value: 'All', text: 'All', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('Latest').update_attributes(facility: '9999', code: 'AllLatest', value: 'Latest', text: 'Latest', option_order: 2, grouper: '')
+
+#MxTracker
+ForSelect.find_or_initialize_by_value('MedChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'MedChange', text: 'MedChange', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('MedNoChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'MedNoChange', text: 'MedNoChange', option_order: 2, grouper: '')
+ForSelect.find_or_initialize_by_value('GroupChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'GroupChange', text: 'GroupChange', option_order: 3, grouper: '')
+ForSelect.find_or_initialize_by_value('GroupNoChange').update_attributes(facility: '9999', code: 'MxTracker', value: 'GroupNoChange', text: 'GroupNoChange', option_order: 4, grouper: '')
+ForSelect.find_or_initialize_by_value('PreNoDate').update_attributes(facility: '9999', code: 'MxTracker', value: 'PreNoDate', text: 'PreNoDate', option_order: 5, grouper: '')
+
+# Bio-Psycho-Social Mx Assessment
+ForSelect.find_or_initialize_by_value('0-8Weeks').update_attributes(facility: '9999', code: 'DrugsChanged', value: '0-8Weeks', text: '0-8Weeks', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('Gt8Weeks').update_attributes(facility: '9999', code: 'DrugsChanged', value: 'Gt8Weeks', text: 'Gt8Weeks', option_order: 2, grouper: '')
+ForSelect.find_or_initialize_by_value('0-3Months').update_attributes(facility: '9999', code: 'GroupsChanged', value: '0-3Months', text: '0-3Months', option_order: 1, grouper: '')
+ForSelect.find_or_initialize_by_value('Gt3Months').update_attributes(facility: '9999', code: 'GroupsChanged', value: 'Gt3Months', text: 'Gt3Months', option_order: 2, grouper: '')
+
+
+# *****************************************
+# SPECIFIC TO HOSPITALS
 # Pilgrim Ward Names
 ForSelect.find_or_initialize_by_value('81/101').update_attributes(facility: '0013', code: 'ward', value: '81/101', text: '81/101', option_order: 1, grouper: 'bld81')
 ForSelect.find_or_initialize_by_value('81/102').update_attributes(facility: '0013', code: 'ward', value: '81/102', text: '81/102', option_order: 2, grouper: 'bld81')
@@ -75,15 +119,5 @@ ForSelect.find_or_initialize_by_value('E-unit').update_attributes(facility: '002
 ForSelect.find_or_initialize_by_value('F-unit').update_attributes(facility: '0025', code: 'ward', value: 'F-unit', text: 'F-unit', option_order: 2, grouper: 'scpc')
 ForSelect.find_or_initialize_by_value('G-unit').update_attributes(facility: '0025', code: 'ward', value: 'G-unit', text: 'G-unit', option_order: 3, grouper: 'scpc')
 
-
-# User make sure pgmdmjm in database
-User.find_or_initialize_by_authen('pgmdmjm').update_attributes(firstname: 'Marc', lastname: 'Mentis', authen: 'pgmdmjm', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
-User.find_or_initialize_by_authen('mmentis').update_attributes(firstname: 'Marc', lastname: 'Mentis', authen: 'mmentis', facility: '0013', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
-
-# Bio-Psycho-Social Mx Assessment
-ForSelect.find_or_initialize_by_value('0-8Weeks').update_attributes(facility: '9999', code: 'DrugsChanged', value: '0-8Weeks', text: '0-8Weeks', option_order: 1, grouper: '')
-ForSelect.find_or_initialize_by_value('Gt8Weeks').update_attributes(facility: '9999', code: 'DrugsChanged', value: 'Gt8Weeks', text: 'Gt8Weeks', option_order: 2, grouper: '')
-ForSelect.find_or_initialize_by_value('0-3Months').update_attributes(facility: '9999', code: 'GroupsChanged', value: '0-3Months', text: '0-3Months', option_order: 1, grouper: '')
-ForSelect.find_or_initialize_by_value('Gt3Months').update_attributes(facility: '9999', code: 'GroupsChanged', value: 'Gt3Months', text: 'Gt3Months', option_order: 2, grouper: '')
 
 
