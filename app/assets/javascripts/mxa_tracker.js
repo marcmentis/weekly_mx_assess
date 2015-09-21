@@ -106,6 +106,10 @@ if ($('body.mxa_tracker').length) {
 			MxAw_complex_search1(user_facility);
 		});
 
+		$('#bt_MxAW_csv').click(function(){
+			MxAw_complex_search_all (user_facility)
+		});
+
 		//Toggle handlers
 		$('#bt_MxAW_TogNotes').click(function(){
 			element = $('#txa_MxAW_pastAssessments');

@@ -55,8 +55,8 @@ class MxAssessment < ActiveRecord::Base
 	                  			.order(lastname: :asc)	
 		end
 
-	# Get jqGrid object for Mx Assessment Tracker
-	def get_mxaw_jqGrid_obj(params)
+	# Get Mx assessments for Tracker
+	def get_mxaw_tracker(params)
 		conditions = Patient.joins(:mx_assessments)
 							.select('mx_assessments.*',
 								:firstname, :lastname, :identifier, :site, :doa)
@@ -87,6 +87,12 @@ class MxAssessment < ActiveRecord::Base
 	    conditions = conditions.where("pre_date > :dpa", {dpa: params[:dpa]}) unless params[:dpa].blank?
 	    conditions = conditions.where("pre_date < :dpb", {dpb: params[:dpb]}) unless params[:dpb].blank?
 	    # conditions = conditions.order("lastname ASC, meeting_date DESC")	
+	    return conditions
+	end
+
+	# Get jqGrid object for Mx Assessment Tracker
+	def get_mxaw_jqGrid_obj(params)
+		conditions = get_mxaw_tracker(params)
 		return jqGrid_obj = create_jqGrid_obj(conditions, params)
 	end
 
@@ -110,5 +116,15 @@ class MxAssessment < ActiveRecord::Base
 			conditions = conditions.where("1=2")
 		end	
 		conditions = conditions.order("meeting_date DESC")
+	end
+
+	# Convert data to csv 
+	def self.to_csv
+		CSV.generate do |csv|
+			all.each do |row|
+				csv << row
+				puts(csv)
+			end
+		end
 	end
 end
