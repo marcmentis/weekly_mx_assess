@@ -34,16 +34,21 @@ function MxAw_complex_search_all (user_facility) {
 	//Add user_facility to params_string
 	params_string = 'facility='+user_facility+'&allLatestNote='+aln+'&dma='+dma+'&dmb='+dmb+'&dda='+dda+'&ddb='+ddb+'&dpa='+dpa+'&dpb='+dpb+'&pid='+pid+'&'+params_string+'' 
 
-	url = '/mxa_tracker_search_all/'
+	url = '/mxa_tracker_search_all.csv'
 	data_for_params = params_string
 
 	$.ajax({
 		url: url,
-		type: 'GET',
+		type: 'POST',
 		data: data_for_params,
 		cache: false,
-		dataType: 'csv'
-	})
+		dataType: 'text'
+	}).done(function(data){
+			alert(data)
+			$('#trash').append(data)
+		}).fail(function(jqXHR,textStatus,errorThrown){
+			alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
+		});
 }
 
 function MxAW_refreshgrid(url){

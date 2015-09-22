@@ -17,12 +17,15 @@ class MxaTrackerController < ApplicationController
   # GET /mxa_tracker_search_all/
   def complex_search_all
     mxassessment = MxAssessment.new
-    @mxaw = mxassessment.get_mxaw_tracker(params).all
-    @success = "this,is,success"
+    @mxaw = mxassessment.get_mxaw_tracker(params)
+    # @mxaw = @mxaw.all
+
+    # @mxaw = MxAssessment.all
 
     respond_to do |format|
       # format.csv { send_data @success, filename: "mxaw-#{Date.today}.csv" }
-      format.csv { send_data @mxaw }
+      # format.csv { send_data @mxaw }
+      format.csv {send_data @mxaw}
     end
   end
 

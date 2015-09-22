@@ -86,13 +86,42 @@ class MxAssessment < ActiveRecord::Base
 	    conditions = conditions.where("doa < :ddb", {ddb: params[:ddb]}) unless params[:ddb].blank?
 	    conditions = conditions.where("pre_date > :dpa", {dpa: params[:dpa]}) unless params[:dpa].blank?
 	    conditions = conditions.where("pre_date < :dpb", {dpb: params[:dpb]}) unless params[:dpb].blank?
-	    # conditions = conditions.order("lastname ASC, meeting_date DESC")	
+	    conditions = conditions.order("lastname ASC, meeting_date DESC")	
 	    return conditions
 	end
 
 	# Get jqGrid object for Mx Assessment Tracker
 	def get_mxaw_jqGrid_obj(params)
-		conditions = get_mxaw_tracker(params)
+		conditions = Patient.joins(:mx_assessments)
+							.select('mx_assessments.*',
+								:firstname, :lastname, :identifier, :site, :doa)
+		# User MUST CHOOSE one of the two allLastNote options
+		if params[:allLatestNote] == 'Latest'
+			# Make subquery (IN) and GROUP BY in a text string
+			conditions = conditions.where("meeting_date =(SELECT MAX(meeting_date) 
+		    												FROM mx_assessments m 
+		    												WHERE m.patient_id = mx_assessments.patient_id 
+		    												GROUP BY m.patient_id)")
+		elsif params[:allLatestNote] == 'All'
+			# Do no filtering - allow all notes to be selected
+		else
+			# Create an empty activeRecord object
+			conditions = conditions.where("1=2")
+		end 
+		conditions = conditions.where("facility = :facility", {facility: params[:facility]}) unless params[:facility] == '-1'
+	    conditions = conditions.where("site = :site", {site: params[:site]}) unless params[:site] == '-1'
+	    conditions = conditions.where("patient_id = :pid", {pid: params[:pid]}) unless params[:pid] == '-1'
+	    conditions = conditions.where("danger_yn = :danger_yn", {danger_yn: params[:danger_yn]}) unless params[:danger_yn] == '-1'
+	    conditions = conditions.where("drugs_last_changed = :drugs_last_changed", {drugs_last_changed: params[:drugs_last_changed]}) unless params[:drugs_last_changed] == '-1'
+	    conditions = conditions.where("psychsoc_last_changed = :psychsoc_last_changed", {psychsoc_last_changed: params[:psychsoc_last_changed]}) unless params[:psychsoc_last_changed] == '-1'
+	    conditions = conditions.where("pre_date_yesno = :pre_date_yesno", {pre_date_yesno: params[:pre_date_yesno]}) unless params[:pre_date_yesno] == '-1'
+	    conditions = conditions.where("meeting_date > :dma", {dma: params[:dma]}) unless params[:dma].blank?
+	    conditions = conditions.where("meeting_date < :dmb", {dmb: params[:dmb]}) unless params[:dmb].blank?
+	    conditions = conditions.where("doa > :dda", {dda: params[:dda]}) unless params[:dda].blank?
+	    conditions = conditions.where("doa < :ddb", {ddb: params[:ddb]}) unless params[:ddb].blank?
+	    conditions = conditions.where("pre_date > :dpa", {dpa: params[:dpa]}) unless params[:dpa].blank?
+	    conditions = conditions.where("pre_date < :dpb", {dpb: params[:dpb]}) unless params[:dpb].blank?
+	    # conditions = conditions.order("lastname ASC, meeting_date DESC")	
 		return jqGrid_obj = create_jqGrid_obj(conditions, params)
 	end
 
@@ -119,11 +148,20 @@ class MxAssessment < ActiveRecord::Base
 	end
 
 	# Convert data to csv 
+	# def self.to_csv
+	# 	CSV.generate do |csv|
+	# 		all.each do |row|
+	# 			csv << row
+	# 			puts(csv)
+	# 		end
+	# 	end
+	# end
+
 	def self.to_csv
 		CSV.generate do |csv|
-			all.each do |row|
-				csv << row
-				puts(csv)
+			csv << column_names
+			all.each do |product|
+				csv << product.attributes.values_at(*column_names)
 			end
 		end
 	end

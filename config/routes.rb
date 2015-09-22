@@ -24,7 +24,7 @@ Rollify::Application.routes.draw do
   get '/mxa_pat_data/' => 'mx_assessments#get_pat_data', as: :mxa_pat_data
 
   get '/mxa_tracker_search/' => 'mxa_tracker#complex_search', as: :mxa_tracker_complex_search
-  get '/mxa_tracker_search_all/' => 'mxa_tracker#complex_search_all', as: :mxa_tracker_complex_search_all
+  post '/mxa_tracker_search_all/' => 'mxa_tracker#complex_search_all', as: :mxa_tracker_complex_search_all
   get '/mxa_tracker_get_reasons/:id' => 'mxa_tracker#get_reasons', as: :get_reasons
 
   # The priority is based upon order of creation: first created -> highest priority.
