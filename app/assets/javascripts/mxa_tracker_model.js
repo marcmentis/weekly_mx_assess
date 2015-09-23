@@ -19,8 +19,9 @@ function MxAw_complex_search1 (user_facility) {
 	MxAW_refreshgrid(url);
 }
 
-function MxAw_complex_search_all (user_facility) {
- 
+function MxAw_complex_search_all() {
+ 	var user_facility = $('#session-facility').val();
+
  	var aln = $('#slt_MxAW_AllLatestNote').val();
  	var dma = $('#dt_MxAW_meetingAfter').val();
  	var dmb = $('#dt_MxAW_meetingBefore').val();
@@ -34,21 +35,21 @@ function MxAw_complex_search_all (user_facility) {
 	//Add user_facility to params_string
 	params_string = 'facility='+user_facility+'&allLatestNote='+aln+'&dma='+dma+'&dmb='+dmb+'&dda='+dda+'&ddb='+ddb+'&dpa='+dpa+'&dpb='+dpb+'&pid='+pid+'&'+params_string+'' 
 
-	url = '/mxa_tracker_search_all.csv'
-	data_for_params = params_string
-
-	$.ajax({
-		url: url,
-		type: 'POST',
-		data: data_for_params,
-		cache: false,
-		dataType: 'text'
-	}).done(function(data){
-			alert(data)
-			$('#trash').append(data)
-		}).fail(function(jqXHR,textStatus,errorThrown){
-			alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
-		});
+	url = '/mxa_tracker_search_all.csv?'+params_string+''
+	html = '<a href="'+url+'">CSV</a>'
+	$('#divForCSV').html(html)
+	// $.ajax({
+	// 	url: url,
+	// 	type: 'POST',
+	// 	data: data_for_params,
+	// 	cache: false,
+	// 	dataType: 'text'
+	// }).done(function(data){
+	// 		alert(data)
+	// 		$('#trash').append(data)
+	// 	}).fail(function(jqXHR,textStatus,errorThrown){
+	// 		alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
+	// 	});
 }
 
 function MxAW_refreshgrid(url){
@@ -100,6 +101,7 @@ function MxAW_refreshgrid(url){
 	        	// user_clearFields();
 	        	// $('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
 	        	// roles_clearFields();
+	        	MxAw_complex_search_all();
 	        },
 
 			onSelectRow:function(id) { 

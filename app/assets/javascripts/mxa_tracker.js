@@ -23,6 +23,9 @@ if ($('body.mxa_tracker').length) {
 					'font-size': '17px',
 					'font-weight': 'bold',
 					'margin': '0 0 7px 0'});
+		$('#divForCSV, #divForEXCEL')
+			.css({'display': 'inline-block',
+					'color': 'red'})
 		// $('#div_MxAW_uppercontainer')
 		// 	.css({'background-color': 'red'});
 
@@ -104,10 +107,6 @@ if ($('body.mxa_tracker').length) {
 		$('#fMxAWsearch').submit(function(e){		
 			e.preventDefault();
 			MxAw_complex_search1(user_facility);
-		});
-
-		$('#bt_MxAW_csv').click(function(){
-			MxAw_complex_search_all (user_facility)
 		});
 
 		//Toggle handlers
