@@ -16,24 +16,15 @@ class MxaTrackerController < ApplicationController
 
   # GET /mxa_tracker_search_all/
   def complex_search_all
-    @mxawALL = MxAssessment.all
-    # mxassessment = MxAssessment.new
-    # @mxaw = mxassessment.get_mxaw_tracker(params).all
-    @pat = Patient.all
-    # @mxaw = Patient.joins(:mx_assessments)
-    #           .select('mx_assessments.*',
-    #             :firstname, :lastname, :identifier, :site, :doa)
- 
-
-
-    
+    mxa = MxAssessment.new
+    mxaw = mxa.get_mxaw_tracker(params)
 
     respond_to do |format|
-      # format.csv { send_data @success, filename: "mxaw-#{Date.today}.csv" }
-
-      format.csv {send_data @pat.to_csv, filename: "mxaw-#{Date.today}.csv" }
+      format.csv {send_data mxa.complex_search_all_to_csv(mxaw), filename: "mxaw-#{Date.today}.csv" } 
     end
   end
+
+  
 
   # GET /mxa_tracker_get_reasons/:id
   def get_reasons

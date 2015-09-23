@@ -147,22 +147,14 @@ class MxAssessment < ActiveRecord::Base
 		conditions = conditions.order("meeting_date DESC")
 	end
 
-	# Convert data to csv 
-	# def self.to_csv
-	# 	CSV.generate do |csv|
-	# 		all.each do |row|
-	# 			csv << row
-	# 			puts(csv)
-	# 		end
-	# 	end
-	# end
+	def complex_search_all_to_csv(activeRecordRelation)
+	    attributes = %w{firstname lastname identifier site doa meeting_date danger_yn drugs_last_changed psychsoc_last_changed pre_date_yesno pre_date}
 
-	def self.to_csv
-		CSV.generate do |csv|
-			csv << column_names
-			all.each do |product|
-				csv << product.attributes.values_at(*column_names)
-			end
-		end
-	end
+	    CSV.generate(headers: true) do |csv|
+	      csv << attributes
+	      activeRecordRelation.each do |row|
+	        csv << attributes.map{ |attr| row.send(attr) }
+	      end
+	    end
+	 end
 end
