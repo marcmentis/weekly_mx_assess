@@ -248,6 +248,14 @@ $background_light_gray: #F5F5F5;
 		width: 108px;
 		font-size: 12px;
 	}
+	a {
+		font-size: 12px;
+		font-family: $r_font_family;
+		// background-color: $r_click_default_background;
+		// border-radius: 5px;
+		color: $r_click_default_text;
+		// border-color: $r_click_default_border;
+	}
 	& .text-14-bold {
 		font-size:14px;
 		color: $r_click_default_text;

@@ -38,18 +38,6 @@ function MxAw_complex_search_all() {
 	url = '/mxa_tracker_search_all.csv?'+params_string+''
 	html = '<a href="'+url+'">CSV</a>'
 	$('#divForCSV').html(html)
-	// $.ajax({
-	// 	url: url,
-	// 	type: 'POST',
-	// 	data: data_for_params,
-	// 	cache: false,
-	// 	dataType: 'text'
-	// }).done(function(data){
-	// 		alert(data)
-	// 		$('#trash').append(data)
-	// 	}).fail(function(jqXHR,textStatus,errorThrown){
-	// 		alert('jqXHR: '+jqXHR+'/n textStatus: '+textStatus+' errorThrown: '+errorThrown+'')
-	// 	});
 }
 
 function MxAW_refreshgrid(url){
