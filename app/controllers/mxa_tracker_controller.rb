@@ -14,6 +14,18 @@ class MxaTrackerController < ApplicationController
     end
   end
 
+  # GET /mxa_tracker_search_all/
+  def complex_search_all
+    mxa = MxAssessment.new
+    mxaw = mxa.get_mxaw_tracker(params)
+
+    respond_to do |format|
+      format.csv {send_data mxa.complex_search_all_to_csv(mxaw), filename: "mxaw-#{Date.today}.csv" } 
+    end
+  end
+
+  
+
   # GET /mxa_tracker_get_reasons/:id
   def get_reasons
     mxassessment = MxAssessment.new

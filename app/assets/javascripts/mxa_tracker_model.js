@@ -19,6 +19,27 @@ function MxAw_complex_search1 (user_facility) {
 	MxAW_refreshgrid(url);
 }
 
+function MxAw_complex_search_all() {
+ 	var user_facility = $('#session-facility').val();
+
+ 	var aln = $('#slt_MxAW_AllLatestNote').val();
+ 	var dma = $('#dt_MxAW_meetingAfter').val();
+ 	var dmb = $('#dt_MxAW_meetingBefore').val();
+ 	var dda = $('#dt_MxAW_doaAfter').val();
+ 	var ddb = $('#dt_MxAW_doaBefore').val();
+ 	var dpa = $('#dt_MxAW_preAfter').val();
+ 	var dpb = $('#dt_MxAW_preBefore').val();
+ 	var pid = $('#slt_MxAW_Patient').val();
+
+	var params_string = $('#fMxAWsearch').serialize();
+	//Add user_facility to params_string
+	params_string = 'facility='+user_facility+'&allLatestNote='+aln+'&dma='+dma+'&dmb='+dmb+'&dda='+dda+'&ddb='+ddb+'&dpa='+dpa+'&dpb='+dpb+'&pid='+pid+'&'+params_string+'' 
+
+	url = '/mxa_tracker_search_all.csv?'+params_string+''
+	html = '<a href="'+url+'">CSV</a>'
+	$('#divForCSV').html(html)
+}
+
 function MxAW_refreshgrid(url){
 
 	if (url == 'nil') {url = '/mxa_tracker_search/'};
@@ -68,6 +89,7 @@ function MxAW_refreshgrid(url){
 	        	// user_clearFields();
 	        	// $('#divUserAsideRt, #b_user_Rt_Submit, #b_user_Rt_Back').hide();
 	        	// roles_clearFields();
+	        	MxAw_complex_search_all();
 	        },
 
 			onSelectRow:function(id) { 
