@@ -10,7 +10,7 @@
 			<div id="div_MxAW_searchGrid" class="grid">
 				<div class="col-1-4">
 					<div>
-						<select name="site" id="slt_MxAW_Ward"></select><span class="text-14-alert">*</span>
+						<select name="site" id="slt_MxAW_Ward"></select>
 					</div>
 					<div class="spacer_vertical_small">
 						<select id="slt_MxAW_Patient"></select>
@@ -53,6 +53,10 @@
 						<label for="dt_MxAW_doaBefore">before</label>
 						<input type="text" id="dt_MxAW_doaBefore">
 					</div>
+					<div class="spacer_vertical_small">
+						<label>DownLoad: </label>
+						<div id="divForCSV"></div>
+					</div>
 					<input id="bt_MxAW_search_select" type="submit" value="Search" /> 
 				</div>
 				
@@ -61,13 +65,36 @@
 		<div id="div_MxAGrid" align="center"></div>
 		
 	</div>
-	<div id="div_MxAW_lowercontainer">
-		LOWER CONTAINER
+	<div id="div_MxAW_lowercontainer" class="spacer_vertical_medium">
+		<form id="fMxAW_pat_info">
+			<input type="text" id="txt_MxAW_PatientID" name="patient_id">
+			<div><h2>Patient Information</h2></div>
+			<div id="div_MxAw_patInfoGrid" class="grid">
+				<div class="col-1-2" >
+					<div>
+						<h3>Past Management Asssessments
+						<input type="button" id="bt_MxAW_TogNotes" value="tog"></input>
+						</h3>
+					</div>
+					<div class="spacer_vertical_small">
+						<textarea id="txa_MxAW_pastAssessments"></textarea>
+					</div>				
+				</div>
+				<div class="col-1-2">
+					<div>
+						<select id="slt_MxAWinfo_ChooseInfo"></select>
+						<input type="button" id="bt_MxAW_TogChoseInfo" value="tog"></input>
+					</div>
+					<div class="spacer_vertical_small">
+						<textarea id="txa_MxAW_specificAssessments"></textarea>
+					</div>
+				</div>
+			</div>
+			
+		</form>
 	</div>
 	
-
-
-
+<div id="trash"></div>
 
 </div>  <!-- id="divMxAWPageInnerWrapper" -->
 </div>  <!-- id="divMxAWPageWrapper" -->

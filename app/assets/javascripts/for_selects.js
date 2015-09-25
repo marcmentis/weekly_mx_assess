@@ -6,21 +6,32 @@ if($('body.for_selects').length) {
 		  	function set_id(x){ID = x};
 
 	//STYLING
-		$('#divForSelectPageWrapper').addClass('pad_3_sides');
-		$('#divForSelectPageInnerWrapper').addClass('centered')
-										.css({'width':'75em'});
-		$('#divForSelectAsideRt').addClass('float_right form_container')
-								.css({'width':'250px'})
+		//div
+		$('#divForSelectPageWrapper')
+				.addClass('pad_3_sides');			
+		$('#divForSelectPageInnerWrapper')
+				.addClass('centered')
+				.css({'max-width':'980px'});
+		$('#divForSelectAsideRt').addClass('form_container')
 								.hide();
 		$('#ForSelectAsideRtErrors').addClass('error_explanation')
 									.hide();
-		$('#ForSelectErrors').addClass('error_explanation')
-							 .hide();
 
-		$('#fForSelectSearch').addClass('form_container').css({'width':'692px'});
+		//form
+		$('#fForSelectSearch').addClass('form_container')
+							.css({'width':'692px'});
+
 		// Can't use .hide() as wont work with IE 10
 		$('#b_for_selects_select').addClass('move_off_page')
+		$('.error_message').hide();
+		
 
+
+		
+		// $('#ForSelectErrors').addClass('error_explanation')
+		// 					 .hide();
+
+		
 		//button
 		$('[id^=b_]').button().addClass('reduce_button')
 
@@ -28,40 +39,39 @@ if($('body.for_selects').length) {
 		// $('[id^=dt]').datepicker().css({'width':'7em'});
 
 	//SELECTS
+		if ($('#session-admin3').val() !== 'true') {
+			$('#slt_for_selects_S_facility, #slt_for_select_Rt_facility')
+					.attr("disabled", true);
+		};
 		//TO DO show appropriate only if Admin2
 		// $('#slt_for_selects_S_facility, #slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
 			
-		$('#slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
+		// $('#slt_for_select_Rt_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
 		//Filter when facility changed
 		$('#slt_for_selects_S_facility').change(function(){
 			for_select_complex_search1();
 		});
-	//FORM VALIDATION, SUBMIT HANDLER
-		//Validate and Submit fPatientAsideRt
-		$('#fForSelectAsideRt').validate({
-			rules: {
-				ftx_for_select_Rt_code: {
-					required: true,
-					minlength: 2
-				},
-				ftx_for_select_Rt_value: {
-					required: true,
-					minlength: 2
-				}
-			},
-			messages: {
-				code: {
-					required: "Code is required",
-					minlength: "Two characters required"
-				},
-				value: {
-					required: "Value is required",
-					minlength: "Two chararcters required"
-				}
-			},
-			submitHandler: function(form){
-				//Get value of submit button to determine which AJAX call to make
-				submit_value = $(form).find('input[type=submit]').attr('value')
+	//Submit New/Edit information from input form
+		$('#fForSelectAsideRt').submit(function(e){
+			e.preventDefault();
+			//VALIDATE that form properly filled out
+			validation_array = [
+ 				['slt_for_select_Rt_facility','-1','Please choose Facility'],
+ 				['ftx_for_select_Rt_code','','Please enter Code'],
+ 				['ftx_for_select_Rt_value','','Please enter Value'],
+ 				['ftx_for_select_Rt_text','','Please enter Text'],
+ 				['ftx_for_select_option_order','','Please enter Order']
+ 			]
+
+
+			//Loop through array and remove error messages if corrected       
+ 			remove_error_divs_if_corrected(validation_array)
+ 			//Loop through array and show error message if '', '-1' etc.
+ 			exit = validate_elements(validation_array)
+ 			if (exit) {return true};
+
+ 			//Get value of submit button to determine which AJAX call to make
+				submit_value = $(this).find('input[type=submit]').attr('value')
 				switch(submit_value){
 					case 'New':
 						for_selects_ajax1('/for_selects', 'POST');
@@ -73,9 +83,46 @@ if($('body.for_selects').length) {
 						alert('submit_id not found');
 						return false;
 				};
-				
-			}
 		});
+		//Validate and Submit fPatientAsideRt
+		// $('#fForSelectAsideRt').validate({
+		// 	rules: {
+		// 		ftx_for_select_Rt_code: {
+		// 			required: true,
+		// 			minlength: 2
+		// 		},
+		// 		ftx_for_select_Rt_value: {
+		// 			required: true,
+		// 			minlength: 2
+		// 		}
+		// 	},
+		// 	messages: {
+		// 		code: {
+		// 			required: "Code is required",
+		// 			minlength: "Two characters required"
+		// 		},
+		// 		value: {
+		// 			required: "Value is required",
+		// 			minlength: "Two chararcters required"
+		// 		}
+		// 	},
+		// 	submitHandler: function(form){
+		// 		//Get value of submit button to determine which AJAX call to make
+		// 		submit_value = $(form).find('input[type=submit]').attr('value')
+		// 		switch(submit_value){
+		// 			case 'New':
+		// 				for_selects_ajax1('/for_selects', 'POST');
+		// 				break;
+		// 			case 'Edit':
+		// 				for_selects_ajax1('/for_selects/'+ID+'', 'PATCH');
+		// 				break;
+		// 			default:
+		// 				alert('submit_id not found');
+		// 				return false;
+		// 		};
+				
+		// 	}
+		// });
 
 	// BUTTONS
 		//Submit complex search on fPatientSearch using hidden submit button
@@ -101,11 +148,18 @@ if($('body.for_selects').length) {
 											complete: function(){
 												$('#slt_for_selects_S_facility').val(''+facility+'');
 												for_select_complex_search1();
-												if ($('#session-admin3').val() !== 'true'){
-													$('#slt_for_selects_S_facility').attr("disabled", true)
-												};
+												// if ($('#session-admin3').val() !== 'true'){
+												// 	$('#slt_for_selects_S_facility').attr("disabled", true)
+												// };
 											}
-										})
+										});
+	//Set value of facility select in form
+	$('#slt_for_select_Rt_facility').mjm_addOptions('facility', {
+											firstLine: 'Facilities',
+											complete: function(){
+												$('#slt_for_select_Rt_facility').val(facility)
+											}
+										});
 
 	//Only want to run 'for_select_complex_search1() after select filled i.e., synchranously'
 	// $('#slt_for_selects_S_facility').mjm_addOptions('facility', {firstLine: 'Facilities'})
@@ -245,8 +299,11 @@ if($('body.for_selects').length) {
 				// $('#divPatientAsideRt, #bNew, #bBack').show();
 				// $('#bDelete, #bEdit').hide();
 
-				$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back').show();
+				$('#divForSelectAsideRt, #b_for_select_Rt_Submit, #b_for_select_Rt_Back')
+						.show();
 				$('#b_for_select_Rt_Submit').attr('value','New');
+				//If admin3 then set facility value to -1
+				//Else set it to users facility
 			},
 			position:'last'
 		})
@@ -267,8 +324,14 @@ if($('body.for_selects').length) {
 	};
 
 	function for_select_clearFields(){
-		$('#ftx_for_select_Rt_code, #ftx_for_select_Rt_value, #ftx_for_select_Rt_text, #ftx_for_select_Rt_grouper, #ftx_for_select_option_order, #slt_for_select_Rt_facility').val('');
+		$('#ftx_for_select_Rt_code, #ftx_for_select_Rt_value, #ftx_for_select_Rt_text, #ftx_for_select_Rt_grouper, #ftx_for_select_option_order').val('');
 		$('#ForSelectAsideRtErrors').html('').hide();
+		if ($('#session-admin3').val() == 'true') {
+			$('#slt_for_select_Rt_facility').val('-1');
+		}else{
+			facility = $('#session-facility').val();
+			$('#slt_for_select_Rt_facility').val(facility);
+		};
 	 };
 
 	function for_selects_ajax1 (url, type) {

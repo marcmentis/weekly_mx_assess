@@ -186,8 +186,7 @@
 			data: data_for_params,
 			cache: false,
 			dataType: 'json'
-		}).done(function(data){
-				
+		}).done(function(data){		
 				clear_all_but_todo_done_lists();
 				$('#grid_MxA_RightContainer').show();	
 

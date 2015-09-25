@@ -1,5 +1,6 @@
 class MxAssessmentsController < ApplicationController
   before_action :set_mx_assessment, only: [:show, :edit, :update, :destroy]
+  # after_action :verify_authorized
 
   #GET /mxa_date_history/.json
   def date_history
@@ -31,6 +32,7 @@ class MxAssessmentsController < ApplicationController
     facility = session[:facility]
     @all_lists = MxAssessment.get_pat_lists(mx_assessment_params, facility)
 
+    # authorize MxAssessment
     respond_to do |format|
       format.json {render json: @all_lists}
     end
@@ -61,6 +63,7 @@ class MxAssessmentsController < ApplicationController
   # GET /mx_assessments.json
   def index
     @mx_assessments = MxAssessment.all
+    authorize MxAssessment 
   end
 
   # GET /mx_assessments/1

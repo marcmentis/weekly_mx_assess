@@ -6,15 +6,18 @@ class ForSelectPolicy
 		@for_select = model
 	end
 
-	def index?
-		# @current_user.role == 'admin2'
-		# @current_user.has_role? :super_admin
-	end
+	# def index?
+	# 	true
+	# end
 
 	def complex_search?
-		@current_user.has_role? :users_d and
-		@current_user.has_role? :users_cruS or 
-		@current_user.has_role? :admin3
+		@current_user.has_role? :admin3 or 
+		@current_user.has_role? :admin2 or
+		@current_user.has_role? :admin1 or
+		(			
+			@current_user.has_role? :trash1 and 
+			@current_user.has_role? :trash2
+		)
 	end
 
 end

@@ -1,7 +1,53 @@
-<div id="homePageWrapper">
-	<h1>StaticPages#home</h1>
+<div id="divHomeWrapper">
+<div id="divHomeInnerWrapper">
 
-</div>
+<% if policy(:widget).index? %>
+	<form id="fHome1">
+		<h2>How best to use this home page?</h2>
+		<div class="grid">
+			<div class="col-2-3">
+				<ul>
+					<li class="text-12-bold">Wait to see what functions are required</li>
+						<ul>
+							<li>Good O-O - Agile programming: <span style="color:red">Sandi would approve</span></li>
+						</ul>
+					<li class="text-12-bold">To-do Lists, Ticklers</li>
+						<ul>
+							<li>None yet for Inpatient/Patient wrapper</li>
+							<li>Outpatient/patient wrapper - Lots of DSRP ticklers already requested by CEO's</li>
+								<ul>
+									<li>I.E. Reminders when Mx insurance expiring</li>
+								</ul>
+						</ul>
+					<li class="text-12-bold">Decorative - 'warm and fuzzy'</li>
+						<ul>
+							<li>Probably waste of great real estate</li>
+							<li>May be reasonable use till good functions present themselves</li>
+						</ul>
+					<li class="text-12-bold">Make 'patients' home page</li>
+						<ul>
+							<li>Can Immediately select a patient for -within-patient functionality (none -requested yet)</li>
+							<li>BUT</li>
+							<ul>
+								<li>Not elegant for 'Across-patient' functionality - like BPS, trackers etc.</li>
+								<li>Need to come back here if patient not in list for 'Across-patient' functionality</li>
+								<li>Presents information that often wont be needed - NOT A GOOD DESIGN</li>
+							</ul>
+						</ul>
+				</ul>
+			</div>
+			<div class="col-1-3">
+				<a href="#"><%= image_tag 'SandiMetz.jpg', class: 'style_image' %></a> 
+				
+			</div>			
+		</div>		
+	</form>
+<% end %>
+
+
+
+</div>	<!-- id="divHomeInnerWrapper" -->
+</div>	<!-- id="divHomeWrapper" -->
 
 
 

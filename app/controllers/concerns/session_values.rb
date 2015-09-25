@@ -24,8 +24,7 @@ module SessionValues
 				session[:facility] = this_user.facility
 				session[:admin3] = this_user.has_role? :admin3
 				session[:user_name] = ''+this_user.lastname+' '+this_user.firstinitial+''
-			end
-				
+			end				
 		end
 
 		def check_rsa_authorization_prod
