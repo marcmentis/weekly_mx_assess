@@ -37,7 +37,9 @@ function MxAw_complex_search_all() {
 
 	url = '/mxa_tracker_search_all.csv?'+params_string+''
 	html = '<a href="'+url+'">CSV</a>'
-	$('#divForCSV').html(html)
+	url2 = '/mxa_tracker_search_all.pdf?'+params_string+''
+	html2 = '<a href="'+url2+'">PDF</a>'
+	$('#divForCSV').html(''+html+' '+html2+'')
 }
 
 function MxAW_refreshgrid(url){

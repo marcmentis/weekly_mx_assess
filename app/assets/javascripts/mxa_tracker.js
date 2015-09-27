@@ -23,7 +23,7 @@ if ($('body.mxa_tracker').length) {
 					'font-size': '17px',
 					'font-weight': 'bold',
 					'margin': '0 0 7px 0'});
-		$('#divForCSV, #divForEXCEL')
+		$('#divForCSV')
 			.css({'display': 'inline-block'})
 		// $('#div_MxAW_uppercontainer')
 		// 	.css({'background-color': 'red'});

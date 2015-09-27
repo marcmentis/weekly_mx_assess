@@ -18,9 +18,18 @@ class MxaTrackerController < ApplicationController
   def complex_search_all
     mxa = MxAssessment.new
     mxaw = mxa.get_mxaw_tracker(params)
+    d = DateTime.now()
+    date_id = d.strftime("%F-%H-%M-%S")
 
     respond_to do |format|
       format.csv {send_data mxa.complex_search_all_to_csv(mxaw), filename: "mxaw-#{Date.today}.csv" } 
+      format.pdf do
+        pdf = MxAssessTrackerPdf.new(mxaw)      
+        send_data pdf.render, 
+                      filename: "mxaw-#{date_id}.pdf",
+                      type: "application/pdf",
+                      disposition: "inline"
+      end
     end
   end
 
