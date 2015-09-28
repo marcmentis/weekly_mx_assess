@@ -56,6 +56,15 @@ class MxAssessmentsController < ApplicationController
     @pat_data = {pat_demog: pat_demog, pat_assessments: pat_assessments}
     respond_to do |format|
       format.json {render json: @pat_data}
+      format.pdf do
+        d = DateTime.now()
+        date_id = d.strftime("%F-%H-%M-%S")
+        pdf = MxaTracker2Pdf.new(@pat_data)
+        send_data pdf.render,
+                    filename: "PastMxAssess-#{date_id}.pdf",
+                    type: "application/pdf",
+                    disposition: "attachment"
+      end
     end
   end
 

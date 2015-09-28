@@ -1,6 +1,6 @@
-class MxAssessTrackerPdf < Prawn::Document
+class MxaTrackerPdf < Prawn::Document
 	def initialize(data)
-		super()
+		super(:page_layout => :landscape)
 		@data = data
 
 		heading
@@ -18,6 +18,7 @@ class MxAssessTrackerPdf < Prawn::Document
 			  ) do |t|
 			t.cells.border_width = 1
 			t.before_rendering_page do |page|
+				page.layout = "landscape"
 				page.row(0).border_top_width = 3
 				page.row(0).border_bottom_width = 2
 				page.row(-1).border_bottom_width = 3
