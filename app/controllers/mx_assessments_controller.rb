@@ -54,6 +54,7 @@ class MxAssessmentsController < ApplicationController
 
     # @pat_data = {pat_demog: pat_demog, doa: doa, pat_assessments: pat_assessments}
     @pat_data = {pat_demog: pat_demog, pat_assessments: pat_assessments}
+  # byebug
     respond_to do |format|
       format.json {render json: @pat_data}
       format.pdf do
@@ -63,7 +64,7 @@ class MxAssessmentsController < ApplicationController
         send_data pdf.render,
                     filename: "PastMxAssess-#{date_id}.pdf",
                     type: "application/pdf",
-                    disposition: "attachment"
+                    disposition: "inline" # "attachment"
       end
     end
   end
