@@ -117,8 +117,11 @@ function MxAW_refreshgrid(url){
 						var doa = moment(pat_demog.doa,"YYYY-MM-DD").format('YYYY-MM-DD');
 						var name = ''+lastname+' '+firstname+''
 
-						// Create the past_mx_text
+						//Identify the patient
 						var text = '';
+						text += '\nNAME: '+name+'    DOA:  '+doa+''
+						// Create the past_mx_text
+						
 						for (var i=0; i < pat_assessments.length; i++) {
 							var data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY-MM-DD")
 							var data_meeting_date_formatted = data_meeting_date.format('YYYY-MM-DD')
@@ -143,10 +146,10 @@ function MxAW_refreshgrid(url){
 							
 
 							//Create and populate past Mx Assessments
-							text += '________________________________________________'
-							text += '\nMEETING DATE:  '+data_meeting_date_formatted+''
+							text += '\n\n________________________________________________'
+							text += '\nMEETING DATE:  '+data_meeting_date_formatted+'     DAYS In HOSP: '+days_in_hosp+''
 							text += '\nSAVED BY:  '+updated_by+'      ON: '+updated_at+''
-							text += '\nNAME: '+name+'    DOA:  '+doa+'  DAYS In HOSP: '+days_in_hosp+''
+							  
 							text += '\n\nPATIENT DANGEROUS (SELF/OTHERS) IF IN APPROVED HOUSING:  '+dangerYesNo+''
 
 							if (dangerYesNo == 'Y') {
@@ -171,7 +174,7 @@ function MxAW_refreshgrid(url){
 									};
 							};
 
-							text +='\n\n\n'
+							text +='\n'
 						};
 						//Enter past assessments into txa_MxAW_pastAssessments
 						$('#txa_MxAW_pastAssessments').val(text)
@@ -300,8 +303,10 @@ function get_reasons_from_note (patient_id, reason) {
 		var doa = moment(data[0].doa,"YYYY-MM-DD").format('YYYY-MM-DD');
 		var name = ''+lastname+' '+firstname+''
 
-		// Create the past_mx_text
+		//Identify the patient
 		var text = '';
+		text += '\nNAME: '+name+'    DOA:  '+doa+''
+		// Create the past_mx_text
 		for (var i=0; i < data.length; i++) {
 			var data_meeting_date = moment(data[i].meeting_date, "YYYY-MM-DD")
 			var data_meeting_date_formatted = data_meeting_date.format('YYYY-MM-DD')
@@ -323,10 +328,10 @@ function get_reasons_from_note (patient_id, reason) {
 			var pre_date_no_why = data[i].pre_date_no_why
 
 			//Create and populate past Mx Assessments
-			text += '________________________________________________'
-			text += '\nMEETING DATE:  '+data_meeting_date_formatted+''
+			text += '\n\n________________________________________________'
+			text += '\nMEETING DATE:  '+data_meeting_date_formatted+'     DAYS In HOSP: '+days_in_hosp+''
 			text += '\nSAVED BY:  '+updated_by+'      ON: '+updated_at+''
-			text += '\nNAME: '+name+'    DOA:  '+doa+'  DAYS In HOSP: '+days_in_hosp+''
+							  
 			text += '\n\nPATIENT DANGEROUS (SELF/OTHERS) IF IN APPROVED HOUSING:  '+dangerYesNo+''
 
 			if (dangerYesNo == 'Y') {	
@@ -350,7 +355,7 @@ function get_reasons_from_note (patient_id, reason) {
 				text +='\n'+pre_date_no_why+'';
 			};
 
-			text +='\n\n\n'
+			text +='\n'
 
 		};
 		//Enter specific reasons into txa_MxAW_specificAssessments
