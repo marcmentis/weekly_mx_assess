@@ -95,8 +95,8 @@ function MxAW_refreshgrid(url){
 				$('#txt_MxAW_PatientID').val(ret.patient_id);
 				var url = '/mxa_pat_data/';
 				var data_for_params = {mx_assessment: {patient_id: ret.patient_id}}
-				var pdf_url = '/mxa_pat_data.pdf?mx_assessment[patient_id]='+ret.patient_id+''
-				var pdf_html = '<a href="'+pdf_url+'">PDF</a>'
+				var pdf_pastMxAssess_url = '/mxa_pat_data.pdf?mx_assessment[patient_id]='+ret.patient_id+''
+				var pdf_pastMxAssess_html = '<a href="'+pdf_pastMxAssess_url+'">PDF</a>'
 
 				$.ajax({ 
 						  url: url,
@@ -179,7 +179,7 @@ function MxAW_refreshgrid(url){
 						//Enter past assessments into txa_MxAW_pastAssessments
 						$('#txa_MxAW_pastAssessments').val(text)
 						//Pass text to PDF
-						$('#divForPastMxPDF').html(''+pdf_html+'')
+						$('#divForPastMxPDF').html(''+pdf_pastMxAssess_html+'')
 												  
 					}).fail(function(jqXHR,textStatus,errorThrown){
 						alert(''+jqXHR+': '+textStatus+':'+errotThrown+'')

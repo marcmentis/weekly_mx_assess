@@ -39,9 +39,18 @@ class MxaTrackerController < ApplicationController
   def get_reasons
     mxassessment = MxAssessment.new
     @reasons = mxassessment.get_mxaw_reasons_from_notes(params)
+    d = DateTime.now()
+    date_id = d.strftime("%F-%H-%M-%S")
 
     respond_to do |format|
       format.json {render json: @reasons}
+      format.pdf do
+        pdf = MxaTracker3Pdf.new(@reasons, params[:reason])
+        send_data pdf.render,
+                      filename: "reasons-#{date_id}.pdf",
+                      type: "application/pdf",
+                      disposition: "inline"
+      end
     end
   end
 end

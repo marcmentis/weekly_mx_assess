@@ -1,15 +1,14 @@
-class MxaTracker2Pdf < Prawn::Document
-	def initialize(data)
+class MxaTracker3Pdf < Prawn::Document
+	def initialize(data,search)
 		super()
-		@pat_demog = data[:pat_demog]
-		@pat_assessments = data[:pat_assessments]
+		@reasons = data
+		@search = search
 		heading
 		body
 	end
 
-	def heading	
-		# text "#{font_size.inspect}"	
-		text "Past Management Assessments", style: :bold, align: :center
+	def heading
+		text '"'+@search+'"   Info extracted from Past Mx Assessments', style: :bold, align: :center
 		move_down 20
 	end
 
@@ -17,18 +16,16 @@ class MxaTracker2Pdf < Prawn::Document
 		# Variables
 			font_size(10)
 			span_width = 500
-		# Get pat_demog variables
-
-		# firstname = @pat_demog[:firstname]
-		# lastname = @pat_demog[:lastname]
-		name = ''+@pat_demog[:lastname]+' '+@pat_demog[:firstname]+''
-		@pat_demog[:doa].blank? ? doa = "" : doa = @pat_demog[:doa].strftime("%F")
+		# Get patient demographics
+		pat1 = @reasons.first
+		name = ''+pat1[:lastname]+' '+pat1[:firstname]+''
+		pat1[:doa].blank? ? doa = '' : doa = pat1[:doa].strftime("%F")
 		doa4diff = doa.to_date
 
 		text 'NAME: '+name+'    DOA: '+doa+'', style: :bold
 
-		@pat_assessments.each do |a|
-			# Get variables for current patient assessment
+		@reasons.each do |a|
+						# Get variables for current patient assessment
 			a.meeting_date.blank? ? meeting_date = "" : meeting_date = a.meeting_date.strftime("%F")
 			a.updated_at.blank? ? updated_at = "" : updated_at = a.updated_at.strftime("%F")
 			a.pre_date.blank? ? pre_date = "" : pre_date = a.pre_date.strftime("%F")
@@ -54,22 +51,25 @@ class MxaTracker2Pdf < Prawn::Document
 			text 'PATIENT DANGEROUS (Self/Others) IF IN APPROVED HOUSING: '+a.danger_yn+''
 
 			if a.danger_yn == 'Y'
-				text 'MEDS LAST CHANGED: '+a.drugs_last_changed+''
-				if a.drugs_last_changed == '0-8Weeks'
+				if a.drugs_last_changed == '0-8Weeks' && @search == 'MedChange'
+					text 'MEDS LAST CHANGED: '+a.drugs_last_changed+''
 						span(span_width, :position => :center) do
 						text ''+a.drugs_change_why+''
 					end
-				elsif a.drugs_last_changed == 'Gt8Weeks'
+				elsif a.drugs_last_changed == 'Gt8Weeks' && @search == 'MedNoChange'
+					text 'MEDS LAST CHANGED: '+a.drugs_last_changed+''
 					span(span_width, :position => :center) do
 						text a.drugs_not_why
 					end
 				end
-				text 'PSYCHOSOCIAL LAST CHANGED: '+a.psychsoc_last_changed+''
-				if a.psychsoc_last_changed == '0-3Months'
+
+				if a.psychsoc_last_changed == '0-3Months' && @search == 'GroupChange'
+					text 'PSYCHOSOCIAL LAST CHANGED: '+a.psychsoc_last_changed+''
 						span(span_width, :position => :center) do
 						text ''+a.psychsoc_change_why+''
 					end
-				elsif a.psychsoc_last_changed == 'Gt3Months'
+				elsif a.drugs_last_changed == 'Gt8Weeks' && @search == 'GroupNoChange'
+					text 'PSYCHOSOCIAL LAST CHANGED: '+a.psychsoc_last_changed+''
 					span(span_width, :position => :center) do
 						text a.psychsoc_not_why
 					end
@@ -88,7 +88,5 @@ class MxaTracker2Pdf < Prawn::Document
 				end
 			end
 		end
-		
-		
 	end
 end

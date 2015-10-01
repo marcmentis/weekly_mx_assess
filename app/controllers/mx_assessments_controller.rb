@@ -64,7 +64,7 @@ class MxAssessmentsController < ApplicationController
         send_data pdf.render,
                     filename: "PastMxAssess-#{date_id}.pdf",
                     type: "application/pdf",
-                    disposition: "inline" # "attachment"
+                    disposition: "attachment" # "inline"
       end
     end
   end
