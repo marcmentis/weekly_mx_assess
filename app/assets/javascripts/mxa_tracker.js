@@ -23,7 +23,7 @@ if ($('body.mxa_tracker').length) {
 					'font-size': '17px',
 					'font-weight': 'bold',
 					'margin': '0 0 7px 0'});
-		$('#divForCSV, #divForEXCEL')
+		$('#divForCSV, #divForPastMxPDF, #divForChooseInfoPDF')
 			.css({'display': 'inline-block'})
 		// $('#div_MxAW_uppercontainer')
 		// 	.css({'background-color': 'red'});
@@ -86,6 +86,11 @@ if ($('body.mxa_tracker').length) {
 			reason = $('#slt_MxAWinfo_ChooseInfo').val();
 
 			get_reasons_from_note(patient_id, reason)
+
+			//Create pdf link
+			var pdf_choooseInfo_url = '/mxa_tracker_get_reasons/'+patient_id+'.pdf?patient_id='+patient_id+'&reason='+reason+''
+			var pdf_choooseInfo_html = '<a href="'+pdf_choooseInfo_url+'">PDF</a>'
+			$('#divForChooseInfoPDF').html(''+pdf_choooseInfo_html+'')
 
 		});
 

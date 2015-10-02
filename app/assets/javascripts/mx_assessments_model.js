@@ -230,8 +230,10 @@
 		// var days = Math.floor(duration.asDays())
 		// var daysInHosp = '  '+days+' days in hospital';
 
-		// Create the past_mx_text
+		//Identify the patient
 		var text = '';
+		text += '\nNAME: '+name+'    DOA:  '+doa+''
+		// Create the past_mx_text
 		for (var i=0; i < pat_assessments.length; i++) {
 			var data_meeting_date = moment(pat_assessments[i].meeting_date, "YYYY-MM-DD")
 			var data_meeting_date_formatted = data_meeting_date.format('YYYY-MM-DD')
@@ -256,10 +258,10 @@
 			
 
 			//Create and populate past Mx Assessments
-			text += '________________________________________________'
-			text += '\nMEETING DATE:  '+data_meeting_date_formatted+''
+			text += '\n\n________________________________________________'
+			text += '\nMEETING DATE:  '+data_meeting_date_formatted+'     DAYS In HOSP: '+days_in_hosp+''
 			text += '\nSAVED BY:  '+updated_by+'      ON: '+updated_at+''
-			text += '\nNAME: '+name+'    DOA:  '+doa+'  DAYS In HOSP: '+days_in_hosp+''
+
 			text += '\n\nPATIENT DANGEROUS (SELF/OTHERS) IF IN APPROVED HOUSING:  '+dangerYesNo+''
 
 			if (dangerYesNo == 'Y') {
@@ -284,7 +286,7 @@
 					};
 			};
 
-			text +='\n\n\n'
+			text +='\n'
 		};
 		//Enter past assessments into txa_MxA_pastAssessments
 		$('#txa_MxA_pastAssessments').val(text)
