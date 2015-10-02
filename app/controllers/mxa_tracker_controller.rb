@@ -26,7 +26,7 @@ class MxaTrackerController < ApplicationController
       format.pdf do
         pdf = MxaTrackerPdf.new(mxaw)      
         send_data pdf.render, 
-                      filename: "mxaw-#{date_id}.pdf",
+                      filename: "MxAssess-#{date_id}.pdf",
                       type: "application/pdf",
                       disposition: "attachment"  # inline 
       end
@@ -49,7 +49,7 @@ class MxaTrackerController < ApplicationController
         send_data pdf.render,
                       filename: "reasons-#{date_id}.pdf",
                       type: "application/pdf",
-                      disposition: "inline"
+                      disposition: "attachment"  # inline
       end
     end
   end

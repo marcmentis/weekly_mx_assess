@@ -8,7 +8,6 @@ class MxaTracker2Pdf < Prawn::Document
 	end
 
 	def heading	
-		# text "#{font_size.inspect}"	
 		text "Past Management Assessments", style: :bold, align: :center
 		move_down 20
 	end
@@ -17,15 +16,13 @@ class MxaTracker2Pdf < Prawn::Document
 		# Variables
 			font_size(10)
 			span_width = 500
+			
 		# Get pat_demog variables
-
-		# firstname = @pat_demog[:firstname]
-		# lastname = @pat_demog[:lastname]
 		name = ''+@pat_demog[:lastname]+' '+@pat_demog[:firstname]+''
 		@pat_demog[:doa].blank? ? doa = "" : doa = @pat_demog[:doa].strftime("%F")
 		doa4diff = doa.to_date
 
-		text 'NAME: '+name+'    DOA: '+doa+'', style: :bold
+		text '<b>NAME:</b>  '+name+'    <b>DOA:</b>  '+doa+'', inline_format: true
 
 		@pat_assessments.each do |a|
 			# Get variables for current patient assessment
@@ -44,17 +41,16 @@ class MxaTracker2Pdf < Prawn::Document
 			move_down 10
 			stroke_horizontal_rule
 			pad_top(5) do
-			 	text "MEETING DATE: "+meeting_date+"      DAYS In HOSP: <color rgb='ff0000'>"+days_in_hosp+"</color>", 
+			 	text "<b>Meeting Date:</b>  "+meeting_date+"      <b>Days in Hosp:</b><color rgb='ff0000'>  "+days_in_hosp+"</color>      <b>Save By:</b>  "+a.updated_by+"      <b>On:</b>  "+updated_at+" ", 
 			 		inline_format: true
 			end
-			text "SAVED BY: "+a.updated_by+"   ON: "+updated_at+" "
 				
 
 			move_down 5
 			text 'PATIENT DANGEROUS (Self/Others) IF IN APPROVED HOUSING: '+a.danger_yn+''
 
 			if a.danger_yn == 'Y'
-				text 'MEDS LAST CHANGED: '+a.drugs_last_changed+''
+				text 'Meds Last Changed: '+a.drugs_last_changed+'', style: :bold
 				if a.drugs_last_changed == '0-8Weeks'
 						span(span_width, :position => :center) do
 						text ''+a.drugs_change_why+''
@@ -64,7 +60,8 @@ class MxaTracker2Pdf < Prawn::Document
 						text a.drugs_not_why
 					end
 				end
-				text 'PSYCHOSOCIAL LAST CHANGED: '+a.psychsoc_last_changed+''
+				move_down 3
+				text 'Psychosocial last changed: '+a.psychsoc_last_changed+'', style: :bold
 				if a.psychsoc_last_changed == '0-3Months'
 						span(span_width, :position => :center) do
 						text ''+a.psychsoc_change_why+''
@@ -76,7 +73,7 @@ class MxaTracker2Pdf < Prawn::Document
 				end
 				
 			elsif a.danger_yn == 'N'
-				text 'Date set for Pre-Conference Meeting: '+a.pre_date_yesno+''
+				text 'Date set for Pre-Conference Meeting: '+a.pre_date_yesno+'', style: :bold
 				if a.pre_date_yesno == 'Y'
 					span(span_width, :position => :center) do
 						text 'Date: '+pre_date+''
