@@ -24,6 +24,9 @@ gem 'jquery-ui-themes'
 gem 'pundit'
 # Multiple Role capability
 gem 'rolify'
+# pdf
+gem 'prawn', '~>2.0.0'
+gem 'prawn-table'
 # Got error on omhdev - rake not in bundle
 gem 'rake'
 gem 'faker'
