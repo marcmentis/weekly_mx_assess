@@ -2,8 +2,8 @@
         # if Rails.env == 'test'
 
         if Rails.env == 'development' || Rails.env == 'test'
-                CONFIG = {}
-
+                CONFIG = {rollify_secret_key_base: '1006c3bf2146404632544fb1564ee47b00a4cd924ae64dd8ed99cf96564e687fcdc54faa7b40918cca7966575bcb42ea866bff6ef5063cc2b950f01c499c7e11'}
+                
          # elsif Rails.env == 'development' || Rails.env == 'production'
         elsif Rails.env == 'production' 
         # Get paths to relevant encryption CONFIG files
