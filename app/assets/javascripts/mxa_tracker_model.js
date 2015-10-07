@@ -201,50 +201,22 @@ function MxAW_refreshgrid(url){
 		// {"closeAfterEdit":true,"closeOnEscape":true}, 
 		// {}, {}, {}, {}
  	  )
-	.navButtonAdd('#divPager', {
-		caption: 'Role',
-		buttonicon: '',
-		onClickButton: function(){	
-			alert('ROle');
-			// if(ID == ''){
-			// 	alert('Please select User from "Users" table');
-			// 	return false;
-			// } else {
-			// 	get_user_roles(''+ID+'');
-			// 	get_all_roles();
-			// };			
-		},
-		position:'last'
-	})
-	.navButtonAdd('#divPager', {
-		caption: 'Delete',
-		buttonicon: '',
-		onClickButton: function(){
-			alert('Delete')
-			// roles_clearFields();
-			// if(ID == '') {
-			// 	swal('Please select User', ' from "Users" table', 'warning');
-			// 	// alert('Please select User from "Users" table');
-			// 	return false;
-			// } else {
-			// 	swal({   
-			// 			title: "Are you sure?",   
-			// 			text: "You will not be able to recover this user!",   
-			// 			type: "warning",   
-			// 			showCancelButton: true,   
-			// 			confirmButtonColor: "#DD6B55",   
-			// 			confirmButtonText: "Yes, delete it!",   
-			// 			closeOnConfirm: true,
-			// 			closeOnCancel: true 
-			// 		}, 
-			// 		function(){   
-			// 			user_ajax1('/users/'+ID+'', 'DELETE');	
-			// 			swal
-			// 		});
-			// };
-		},
-		position:'last'
-	});
+	// .navButtonAdd('#divPager', {
+	// 	caption: 'Role',
+	// 	buttonicon: '',
+	// 	onClickButton: function(){	
+	// 		alert('ROle');			
+	// 	},
+	// 	position:'last'
+	// })
+	// .navButtonAdd('#divPager', {
+	// 	caption: 'Delete',
+	// 	buttonicon: '',
+	// 	onClickButton: function(){
+	// 		alert('Delete')
+	// 	},
+	// 	position:'last'
+	// });
 };
 
 function get_site_patients_pop_pat_select (site) { 	
