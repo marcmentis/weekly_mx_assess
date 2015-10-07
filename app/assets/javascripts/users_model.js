@@ -127,30 +127,15 @@
 				roles_clearFields();
 				ID = $('#hd_User_userID').val();
 				if(ID == '') {
-					swal('Please select User', ' from "Users" table', 'warning');
-					// alert('Please select User from "Users" table');
+					alert('Please select User from "Users" table');
 					return false;
 				} else {
-					swal({   
-							title: "Are you sure?",   
-							text: "You will not be able to recover this user!",   
-							type: "warning",   
-							showCancelButton: true,   
-							confirmButtonColor: "#DD6B55",   
-							confirmButtonText: "Yes, delete it!",   
-							closeOnConfirm: true,
-							closeOnCancel: true 
-						}, 
-						function(){  
-							ID = $('#hd_User_userID').val(); 
-							user_ajax1('/users/'+ID+'', 'DELETE');	
-							swal
-						});
-					// if(confirm("Are you sure you want to delete this user")){
-					// 	user_ajax1('/users/'+ID+'', 'DELETE');	
-					// } else {
-					// 	return true;
-					// };
+					if(confirm("Are you sure you want to delete this user")){
+						ID = $('#hd_User_userID').val(); 
+						user_ajax1('/users/'+ID+'', 'DELETE');
+					} else {
+						return true;
+					};
 				};
 			},
 			position:'last'

@@ -97,7 +97,6 @@ if ($('body.mx_assessments').length) {
 			//Setup and Validation
 			//When Ward Changed: 
 			if (id == 'slt_MxA_ward') {
-				// swal(ward)
 				popSelectDateHistory();
 				$('#dt_MxA_newDate').val('');
 				clear_todo_done_selects();
@@ -108,7 +107,7 @@ if ($('body.mx_assessments').length) {
 			if (id == 'dt_MxA_newDate') {
 				//Check ward has been selected
 				if ($('#slt_MxA_ward').val() == '-1') {
-					swal('Please choose a ward before selecting a date');
+					alert('Please choose a ward before selecting a date');
 					$('#dt_MxA_newDate').val('');				
 					return true;
 				};
@@ -171,7 +170,6 @@ if ($('body.mx_assessments').length) {
 		$('#slt_Mxa_drugsChanged').change(function(){
 			value = $(this).val();
 			$('.error_message').hide();
-			// swal(value)
 			if(value == -1){
 				$('#div_MxA_dangerYes_drugNo, #div_MxA_dangerYes_drugYes').hide();
 				$('#txa_MxA_drugNoChange, #txa_MxA_drugWhyChange').val('');
@@ -195,7 +193,6 @@ if ($('body.mx_assessments').length) {
 		$('#slt_Mxa_groupChanged').change(function(){
 			value = $(this).val();
 			$('.error_message').hide();
-			// swal(value);
 			if (value == -1) {
 				$('#div_MxA_dangerYes_groupYes, #div_MxA_dangerYes_groupNo').hide();
 				$ ('#txa_MxA_groupNoChange, txa_MxA_groupWhyChange').val('');
