@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   include SessionValues
   include PhiAuditing
   include CurrentUser
-  include Pundit
+  # include Pundit
 
   	
 

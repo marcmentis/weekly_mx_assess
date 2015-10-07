@@ -5,7 +5,6 @@
 		var url = '/mxa_date_history/'
 		//create strong parameter
 		data_for_params = {mx_assessment: {'site': ward}}
-		// swal(ward);
 		$.ajax({
 			url: url,
 			type: 'GET',

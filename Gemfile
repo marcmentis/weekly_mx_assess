@@ -41,12 +41,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development do
-	gem 'better_errors' # Better error page
-	gem 'binding_of_caller' # Adds functionality to better_errors
-	gem 'meta_request'  # Works with RailsPanel in Chrome (Add RailsPanel from google store)
-	gem 'rails-erd'	# Drawing Entity Relationship Diagrams using graphviz
-end
 group :development, :test do
 	gem 'sqlite3'
 	gem 'mysql2'
@@ -57,6 +51,14 @@ group :development, :test do
 	# gem 'faker'
 	gem 'shoulda-matchers', require: false # association matchers v2.8.0
 end
+
+group :development do
+	gem 'better_errors' # Better error page
+	gem 'binding_of_caller' # Adds functionality to better_errors
+	gem 'meta_request'  # Works with RailsPanel in Chrome (Add RailsPanel from google store)
+	gem 'rails-erd'	# Drawing Entity Relationship Diagrams using graphviz
+end
+
 group :test do
 	# gem 'selenium-webdriver', '2.35.1'  # capybara dependency
 	# gem 'capybara', '2.1.0' #Simulate users BEHAVIOR.
